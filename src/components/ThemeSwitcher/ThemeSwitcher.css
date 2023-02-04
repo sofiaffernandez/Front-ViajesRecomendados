@@ -1,0 +1,18 @@
+main{
+    background-color:rgb(255, 255, 255);
+    color: black;
+  }
+  main a{
+    color: rgb(26, 1, 139);
+    text-decoration: none;
+  }
+  
+  main.night {
+    background-color: #292730;
+    color: white;
+  } 
+  
+  main.night a{
+    color: rgb(147, 195, 207);
+    text-decoration: none;
+  }

@@ -1,0 +1,45 @@
+/* CSS general, resetear, modo noche y día, quitar el estilo a las listas  */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+div#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+div#root main {
+  flex-grow: 1;
+}
+
+ul {
+  list-style: none;
+}
+
+
+main{
+  background-color:rgb(255, 255, 255);
+  color: black;
+  min-height: calc(100vh - 8rem);
+  display:flex;
+  flex-direction: column;
+}
+main a{
+  color: rgb(26, 1, 139);
+  text-decoration: none;
+}
+
+main.night {
+  background-color: #292730;
+  color: white;
+  min-height: calc(100vh - 8rem);
+  display: flex;
+  flex-direction: column;
+} 
+main.night a{
+  color: rgb(147, 195, 207);
+  text-decoration: none;
+}
