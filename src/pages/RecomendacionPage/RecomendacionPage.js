@@ -1,9 +1,14 @@
-import { useNavigate, useParams } from "react-router-dom";
-import useRecomendacion from "./../hooks/useRecomendacion"
-const Recomendacion = () => {
+import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import Spinner from "../../components/Spinner/Spinner";
+import  useRecomendacion   from "../../hooks/UseRecomendacion"
+
+const RecomendacionPage = () => {
   const { id } = useParams();
-  const recomendacion = useRecomendacion(id);
-   // const usuario 
+  const { recomendacion, loading } = useRecomendacion(id);
+  if (loading) {
+    return <Spinner></Spinner>
+  }
 
   return (
     <>
@@ -15,15 +20,14 @@ const Recomendacion = () => {
           <h3>{recomendacion.categoria}</h3>
           <p>{recomendacion.entradilla}</p>
           <p>{recomendacion.texto}</p>
-          <p>Creada por <Link to={`/recoemndacion/${recomendacion.usuario_id}`}>{usuario.nombre}</Link> {" "}
-        <Link to={`/recomendacion/${recomendacion.id}`}>
-          {new Date(recomendacion.created_at).toLocaleString()}
-        </Link></p>
+          <p>Creada por <Link to={`/usuario/${recomendacion.autor_id}`}>Nombre del usuario</Link> {" "} 
+         at {recomendacion.created_at}
+        </p>
         </section>
       )}
     </>
   );
 };
 
-export default Recomendacion;
+export default RecomendacionPage;
 

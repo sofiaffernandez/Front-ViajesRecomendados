@@ -12,7 +12,9 @@ import Registro from "./pages/RegisterPage/RegisterPage";
 import About from "./pages/AboutPage/AboutPage"
 import Home from "./pages/HomePage/HomePage"
 import NotFoundPage  from "./pages/NotFoundPage/NotFoundPage";
-
+import UserPage from "./pages/UserPage/UserPage";
+import RecomendacionPage from "./pages/RecomendacionPage/RecomendacionPage";
+import NuevaRecomendacionPage from "./pages/NuevaRecomendacionPage/NuevaRecomendacionPage"
 //import componentes
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
@@ -33,6 +35,9 @@ function App() {
         <Route path="/usuario/login" element={<Login />} />
         <Route path="/usuario/crear" element={<Registro />} />
         <Route path="*" element={<NotFoundPage />} />
+        <Route path= "/usuario/:id" element= {<UserPage />} />
+        <Route path="/recomendacion/:id/detalle" element={<RecomendacionPage />}/>
+        <Route path="/recomendacion/crear" element={<NuevaRecomendacionPage />}/>
       </Routes>
       </main>
       <Footer />

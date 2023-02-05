@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import useFetch from "../hooks/useFetch";
 
-const { REACT_APP_API } = process.env;
+const {REACT_APP_BACKEND } = process.env;
 
 const NuevaRecomendacion = () => {
-    const recomendacion = useFetch({REACT_APP_API} + id);
+   const recomendacion = fetch("/recomendacion/publicar");
+
   const [titulo, setTitulo] = useState("");
   const [categoria, setCategoria] = useState("");
   const [lugar, setLugar] = useState("");
@@ -49,7 +49,9 @@ const NuevaRecomendacion = () => {
   };
 
   return (
-    <form className="useracter edit" onSubmit={handleSubmit}>
+    <>
+    <h2>Nueva Recomendación</h2>
+    <form className="nuevaRecomendación" onSubmit={handleSubmit}>
       <label>
         <span>Titulo:</span>
         <input
@@ -106,6 +108,7 @@ const NuevaRecomendacion = () => {
       </label>
       <button>Publicar recomendación</button>
     </form>
+    </>
   );
 }
 

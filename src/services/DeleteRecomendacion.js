@@ -1,14 +1,14 @@
-export const deleteTweetService = async ({ id, token }) => {
-    const response = await fetch(`${process.env.REACT_APP_BACKEND}/recomendacion/${id}`, {
+export const deleteRecomendacion= async ({ id, token }) => {
+    const res = await fetch(`${process.env.REACT_APP_BACKEND}/recomendacion/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: token,
       },
     });
   
-    const json = await response.json();
+    const data = await res.json();
   
-    if (!response.ok) {
-      throw new Error(json.message);
+    if (!res.ok) {
+      throw new Error(data.message);
     }
   };

@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import logo from "./../../logoplanb.png"
 //import icono 
 import { AiOutlineLogout } from "react-icons/ai";
+import { RxAvatar } from  "react-icons/rx"
+import {MdOutlineCreate} from "react-icons/md"
 //import del cambio de tema
 import  ThemeSwitcher   from "./../ThemeSwitcher/ThemeSwitcher";
 
@@ -12,7 +14,7 @@ import { useUser, useSetUser } from "../../context/UserContext";
 import "./Header.css"
 
 const Header = () => {
-  const user = useUser();
+  const usuario = useUser();
   const setUser = useSetUser();
 
   return (
@@ -34,11 +36,16 @@ const Header = () => {
                     AboutUs
                     </Link>
                 </li>
-                { user ? (
+                { usuario ? (
                 <section>
-                  <Link to={`/usuario/${user.id}`}>{user.nombre}</Link>{" "}
+                  <Link to={"/recomendacion"}>
+                  <MdOutlineCreate /> 
+                  </Link>
+                  <Link to={`/usuario/${usuario.id}`}>
+                  < RxAvatar /> </Link>
                   <AiOutlineLogout  onClick={() => setUser()} />
                 </section>
+              
               ) : (
             <>
               <li>
