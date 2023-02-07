@@ -1,30 +1,50 @@
-import { useState, useEffect } from 'react';
+import Spinner from "../../components/Spinner/Spinner";
+import { useState } from 'react';
 import { useParams } from "react-router-dom";
-import getAllComentarios from "./../../services/GetAllComentariosRecomendacion"
-import  postComentario  from "./../../services/PostComentario"
+import { toast } from "react-toastify";
 
 const Comentar = () => {
-
+  const { id } = useParams();
     const [ comentarios, setComentarios ] = useState([]);
     const [ comentario, setComentario ] = useState('');
-    
-const usuario_id = JSON.parse(localStorage.getItem('user')).id;
-const { recomendacion_id } = useParams();
+    const token = JSON.parse(localStorage.getItem('user')).token;
 
-const handleSubmit = (e) => {
+  //Establecimiento del status y su set 
+  const [status, setStatus] = useState("");
+
+const handleSubmit = async (e) => {
     e.preventDefault();
-    const body = {
-      recomendacion_id,
-      usuario_id,
-      comentario
-    }
-    postComentario(body)
+try{
+  setStatus("loading");
+  const formData = new FormData();
+  formData.append("comentario", comentario);
+  const res = await fetch(`${process.env.REACT_APP_BACKEND}/recomendacion/${id}/comentar`, {
+    method: "POST",
+    headers: {
+      Authorization: token,
+    },
+    body: JSON.stringify({ comentario })
+  });
 
+  const data = await res.json();
+
+  if(!res.ok || data.status ==="error"){
+  toast.error(data.message);
+  }
+  else{
+    toast.success("Se ha publicado el comentario correctamente");
+    setComentarios([...comentarios, data.data]);
+  }
+
+} catch (error) {
+  toast.error(error.message);
+} finally{
+  setStatus("");
 }
-
-    useEffect(() => {
-        getAllComentarios();
-      }, []);
+}
+if (status === "loading") {
+  return <Spinner />;
+}
 
 return (
 <>
@@ -44,4 +64,5 @@ return (
 </>
     )
 }
-export default Comentar
+
+export default Comentar;

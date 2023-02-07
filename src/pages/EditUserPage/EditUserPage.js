@@ -1,40 +1,62 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Spinner from "../../components/Spinner/Spinner";
+import { toast } from "react-toastify";
+const {REACT_APP_BACKEND } = process.env;
 
 function EditUser() {
   const { id } = useParams();
-  const [user] = useState([]);
+  const token = JSON.parse(localStorage.getItem('user')).token;
   const [nombre, setNombre] = useState();
   const [email, setEmail] = useState();
   const [nuevoEmail, setNuevoEmail] = useState();
   const [avatar, setAvatar] = useState();
   const [avatarPreview, setAvatarPreview] = useState();
+  //Establecimiento del status y su set 
+  const [status, setStatus] = useState("");
 
   useEffect(() => {
     setNombre(nombre);
     setEmail(email);
     setNuevoEmail(nuevoEmail);
     setAvatarPreview(avatar);
-  }, [user]);
+  }, [nombre, email, nuevoEmail, avatar]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+try{
+  setStatus("loading");
+  const formData = new FormData();
+  formData.append("nombre", nombre);
+  formData.append("email", email); 
+  formData.append("nuevoEmail", nuevoEmail); 
+  formData.append("avatar", avatar); 
+  
+  const res = await fetch(`${REACT_APP_BACKEND}/usuario/${id}`, {
+    method: "PUT",
+    headers: {
+      Authorization: token},
+    body: formData,
+  });
+  const data = await res.json();
 
-    const formData = new FormData();
-    formData.append("nombre", nombre);
-    formData.append("email", email); 
-    formData.append("nuevoEmail", nuevoEmail); 
-    formData.append("avatar", avatar); 
+  if(!res.ok || data.status ==="error"){
+    toast.error(data.message);
+    }
+    else{
+      toast.success("Se ha actualizado correctamente");
+    }
 
+  } catch (error) {
+    toast.error(error.message);
+  } finally{
+    setStatus("");
+  }
+  }
 
-    const res = await fetch("" + id, {
-      method: "PUT",
-      body: formData,
-    });
-    const data = await res.json();
-    console.log(data);
-  };
-
+  if (status === "loading") {
+    return <Spinner />;
+  }
   const handleFile = (e) => {
     const file = e.target.files[0];
     setAvatar(file);

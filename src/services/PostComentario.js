@@ -1,10 +1,10 @@
-const postComentario = async ({ recomendacion_id, body, token }) => {
-    const res =  fetch(`${process.env.REACT_APP_BACKEND}/recomendacion/${recomendacion_id}/votar`, {
+const postComentario = async ({ id, comentario, token }) => {
+    const res =  fetch(`${process.env.REACT_APP_BACKEND}/recomendacion/${id}/votar`, {
         method: "POST",
         headers: {
           Authorization: token,
         },
-        body: JSON.stringify({ body })
+        body: JSON.stringify({ comentario })
       });
     
     const data = await res.json();

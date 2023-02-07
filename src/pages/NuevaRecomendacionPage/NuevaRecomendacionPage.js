@@ -1,9 +1,9 @@
-import { useContext, useEffect, useState } from "react";
-
+import Spinner from "../../components/Spinner/Spinner";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 const {REACT_APP_BACKEND } = process.env;
-
 const NuevaRecomendacion = () => {
- 
+
   const [titulo, setTitulo] = useState("");
   const [categoria, setCategoria] = useState("");
   const [lugar, setLugar] = useState("");
@@ -11,21 +11,33 @@ const NuevaRecomendacion = () => {
   const [texto, setTexto] = useState("");
   const [foto, setFoto] = useState("");
   const [fotoPreview, setFotoPreview] = useState("");
-  const [token ] = useContext("")
+ const token = JSON.parse(localStorage.getItem('user')).token;
+  //Establecimiento del status y su set 
+  const [status, setStatus] = useState("");
+
 
   useEffect(() => {
-    setTitulo(titulo);
-    setCategoria(categoria);
-    setLugar(lugar);
-    setEntradilla(entradilla);
-    setTexto(texto);
-    setFoto(foto);
+      setTitulo(titulo);
+      setCategoria(categoria);
+      setLugar(lugar);
+      setEntradilla(entradilla)
+      setTexto(texto);
+      setFoto(foto)
     
-  },[titulo, categoria, lugar, entradilla, texto, foto]);
+  }, [ 
+    titulo, 
+    categoria,
+    lugar,
+    entradilla,
+    texto,
+    foto
+  ]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  try {
 
+    setStatus("loading");
     const formData = new FormData();
     formData.append("titulo", titulo);
     formData.append("categoria", categoria); 
@@ -37,13 +49,28 @@ const NuevaRecomendacion = () => {
     const res = await fetch(  `${REACT_APP_BACKEND}/recomendacion/crear`, {
       method: "POST",
       headers: {
-        token: token,},
+        Authorization: token,},
       body: formData,
     });
     const data = await res.json();
-    console.log(data);
-  };
 
+    if(!res.ok || data.status ==="error"){
+    toast.error(data.message);
+    }
+    else{
+      toast.success("Se ha publicado correctamente");
+    }
+
+  } catch (error) {
+    toast.error(error.message);
+  } finally{
+    setStatus("");
+  }
+  }
+  if (status === "loading") {
+    return <Spinner />;
+  }
+  
   const handleFile = (e) => {
     const file = e.target.files[0];
     setFoto(file);

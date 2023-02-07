@@ -1,33 +1,48 @@
 import Box from '@mui/material/Box';
+import Spinner from "../../components/Spinner/Spinner";
 import * as React from 'react';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
-import { voteRecomendacion } from '../../services/VoteRecomendacion';
+import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
-
+import { useState } from "react";
 const Votar = () => {
   const { id } = useParams();
-  const user = JSON.parse(localStorage.getItem('user'));
-
-  const [value, setValue] = React.useState(0);
-  const handleClickRating = (event, newValue) => {
-    setValue(newValue);
-    if(user){
-      if(newValue === 1){
-        voteRecomendacion({id, token: user.token, voto:1});
-      }else if(newValue === 2){
-        voteRecomendacion({id, token: user.token, voto:2});
-      }else if(newValue === 3){
-        voteRecomendacion({id, token: user.token, voto:3});
-      }else if(newValue === 4){
-        voteRecomendacion({id, token: user.token, voto:4});
-      }else if(newValue === 5){
-        voteRecomendacion({id, token: user.token, voto:5});
+  const token = JSON.parse(localStorage.getItem('user')).token;
+  //Establecimiento del status y su set 
+  const [status, setStatus] = useState("");
+  const [voto, setVoto] = useState(0);
+  const handleClickRating = async (e, voto) => {
+    e.preventDefault();
+    try {
+      setStatus("loading");
+      setVoto(voto);
+      const res = await fetch(`${process.env.REACT_APP_BACKEND}/recomendacion/${id}/votar`, {
+        method: "POST",
+        headers: {
+          Authorization: token,
+        },
+        body: JSON.stringify({ voto })
+      });
+    const data = await res.json();
+    if(!res.ok || data.status ==="error"){
+      toast.error(data.message);
       }
+      else{
+        toast.success("Se ha publicado correctamente");
+      }
+  
+    } catch (error) {
+      toast.error(error.message);
+    } finally{
+      setStatus("");
     }
 }
+if (status === "loading") {
+  return <Spinner />;
+}
 return (
-  user ? (
+  token ? (
         <Box
         sx={{
         '& > legend': { mt: 2 },
@@ -35,7 +50,7 @@ return (
         <Typography component="legend">Vota</Typography>
         <Rating
         name="simple-controlled"
-        value={value}
+        value={voto}
         onChange={handleClickRating}/>
         </Box>
 

@@ -1,5 +1,6 @@
  const GetAllComentarios = async (id) => {
     const res = await fetch(`${process.env.REACT_APP_BACKEND}/recomendaciones/${id}/comentar`);
+    
   
     const data = await res.json();
   

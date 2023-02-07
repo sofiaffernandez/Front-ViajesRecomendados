@@ -39,7 +39,7 @@ function App() {
         <Route path= "/usuario/:id/detalle" element= {<UserPage />} />
         <Route path="/recomendacion/:id/detalle" element={<RecomendacionPage />}/>
         <Route path="/recomendacion/formulario" element={<NuevaRecomendacionPage />}/>
-        <Route path="/usuario/id" element={<EditUser />}/>
+        <Route path="/usuario/:id" element={<EditUser />}/>
       </Routes>
       </main>
       <Footer />
