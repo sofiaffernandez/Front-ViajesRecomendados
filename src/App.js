@@ -21,6 +21,7 @@ import Footer from "./components/Footer/Footer";
 
 //Import para día o noche
 import {ThemeProvider} from "./context/ThemeContext";
+import EditUser from "./pages/EditUserPage/EditUserPage";
 
 
 function App() {
@@ -35,9 +36,10 @@ function App() {
         <Route path="/usuario/login" element={<Login />} />
         <Route path="/usuario/crear" element={<Registro />} />
         <Route path="*" element={<NotFoundPage />} />
-        <Route path= "/usuario/:id" element= {<UserPage />} />
+        <Route path= "/usuario/:id/detalle" element= {<UserPage />} />
         <Route path="/recomendacion/:id/detalle" element={<RecomendacionPage />}/>
-        <Route path="/recomendacion/crear" element={<NuevaRecomendacionPage />}/>
+        <Route path="/recomendacion/formulario" element={<NuevaRecomendacionPage />}/>
+        <Route path="/usuario/id" element={<EditUser />}/>
       </Routes>
       </main>
       <Footer />

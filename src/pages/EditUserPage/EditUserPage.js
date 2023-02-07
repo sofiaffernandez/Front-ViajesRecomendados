@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import useFetch from "../hooks/useFetch";
 
 function EditUser() {
   const { id } = useParams();
-  const user = useFetch("https://localhost:4000/usuario" + id);
-
+  const [user] = useState([]);
   const [nombre, setNombre] = useState();
   const [email, setEmail] = useState();
   const [nuevoEmail, setNuevoEmail] = useState();
@@ -13,10 +11,10 @@ function EditUser() {
   const [avatarPreview, setAvatarPreview] = useState();
 
   useEffect(() => {
-    setNombre(user?.nombre);
-    setEmail(user?.email);
-    setNuevoEmail(user?.nuevoEmail);
-    setAvatarPreview(user?.avatar);
+    setNombre(nombre);
+    setEmail(email);
+    setNuevoEmail(nuevoEmail);
+    setAvatarPreview(avatar);
   }, [user]);
 
   const handleSubmit = async (e) => {
@@ -50,7 +48,7 @@ function EditUser() {
         <input
           name="nombre"
           value={nombre}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => setNombre(e.target.value)}
         />
       </label>
       <label>

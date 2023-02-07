@@ -38,10 +38,10 @@ const Header = () => {
                 </li>
                 { usuario ? (
                 <section>
-                  <Link to={"/recomendacion"}>
+                  <Link to={"/recomendacion/formulario"}>
                   <MdOutlineCreate /> 
                   </Link>
-                  <Link to={`/usuario/${usuario.id}`}>
+                  <Link to={`/usuario/${usuario.id}/detalle`}>
                   < RxAvatar /> </Link>
                   <AiOutlineLogout  onClick={() => setUser()} />
                 </section>

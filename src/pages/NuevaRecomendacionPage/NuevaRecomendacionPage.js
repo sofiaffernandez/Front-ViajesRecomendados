@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 
 const {REACT_APP_BACKEND } = process.env;
 
 const NuevaRecomendacion = () => {
-   const recomendacion = fetch("/recomendacion/publicar");
-
+ 
   const [titulo, setTitulo] = useState("");
   const [categoria, setCategoria] = useState("");
   const [lugar, setLugar] = useState("");
@@ -12,16 +11,17 @@ const NuevaRecomendacion = () => {
   const [texto, setTexto] = useState("");
   const [foto, setFoto] = useState("");
   const [fotoPreview, setFotoPreview] = useState("");
+  const [token ] = useContext("")
 
   useEffect(() => {
-    setTitulo(recomendacion?.titulo);
-    setCategoria(recomendacion?.categoria);
-    setLugar(recomendacion?.lugar);
-    setEntradilla(recomendacion?.entradilla);
-    setTexto(recomendacion?.texto);
-    setFoto(recomendacion?.foto);
+    setTitulo(titulo);
+    setCategoria(categoria);
+    setLugar(lugar);
+    setEntradilla(entradilla);
+    setTexto(texto);
+    setFoto(foto);
     
-  }, [recomendacion]);
+  },[titulo, categoria, lugar, entradilla, texto, foto]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,8 +34,10 @@ const NuevaRecomendacion = () => {
     formData.append("texto", texto); 
     formData.append("foto", foto); 
 
-    const res = await fetch("" + id, {
-      method: "PUT",
+    const res = await fetch(  `${REACT_APP_BACKEND}/recomendacion/crear`, {
+      method: "POST",
+      headers: {
+        token: token,},
       body: formData,
     });
     const data = await res.json();
