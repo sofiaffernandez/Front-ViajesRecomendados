@@ -11,7 +11,8 @@ const Votar = () => {
   const token = JSON.parse(localStorage.getItem('user')).token;
   //Establecimiento del status y su set 
   const [status, setStatus] = useState("");
-  const [voto, setVoto] = useState(0);
+  const [voto, setVoto] = useState(5);
+  
   const handleClickRating = async (e, voto) => {
     e.preventDefault();
     try {
@@ -24,6 +25,7 @@ const Votar = () => {
         },
         body: JSON.stringify({ voto })
       });
+
     const data = await res.json();
     if(!res.ok || data.status ==="error"){
       toast.error(data.message);
@@ -51,7 +53,7 @@ return (
         <Rating
         name="simple-controlled"
         value={voto}
-        onChange={handleClickRating}/>
+        onChange={(e, voto) => handleClickRating(e, voto)}/>
         </Box>
 
 ) : (
