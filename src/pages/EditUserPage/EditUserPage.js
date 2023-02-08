@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+
 import Spinner from "../../components/Spinner/Spinner";
 import { toast } from "react-toastify";
 const {REACT_APP_BACKEND } = process.env;
 
 function EditUser() {
-  const { id } = useParams();
+  const id = JSON.parse(localStorage.getItem('user')).id;
   const token = JSON.parse(localStorage.getItem('user')).token;
   const [nombre, setNombre] = useState();
   const [email, setEmail] = useState();
-  const [nuevoEmail, setNuevoEmail] = useState();
+  const [nuevaContraseña, setNuevaContraseña] = useState();
   const [avatar, setAvatar] = useState();
   const [avatarPreview, setAvatarPreview] = useState();
   //Establecimiento del status y su set 
@@ -18,9 +18,9 @@ function EditUser() {
   useEffect(() => {
     setNombre(nombre);
     setEmail(email);
-    setNuevoEmail(nuevoEmail);
+    setNuevaContraseña(nuevaContraseña);
     setAvatarPreview(avatar);
-  }, [nombre, email, nuevoEmail, avatar]);
+  }, [nombre, email, nuevaContraseña, avatar]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,7 +29,7 @@ try{
   const formData = new FormData();
   formData.append("nombre", nombre);
   formData.append("email", email); 
-  formData.append("nuevoEmail", nuevoEmail); 
+  formData.append("nuevaContraseña", nuevaContraseña); 
   formData.append("avatar", avatar); 
   
   const res = await fetch(`${REACT_APP_BACKEND}/usuario/${id}`, {
@@ -83,12 +83,12 @@ try{
         />
       </label>
       <label>
-        <span>Nuevo email:</span>
+        <span>Nueva contraseña:</span>
         <input
-          name="nuevoEmail"
-          type="email"
-          value={nuevoEmail}
-          onChange={(e) => setNuevoEmail(e.target.value)}
+          name="contraseña"
+          type="password"
+          value={nuevaContraseña}
+          onChange={(e) => setNuevaContraseña(e.target.value)}
         />
       </label>
       <label>

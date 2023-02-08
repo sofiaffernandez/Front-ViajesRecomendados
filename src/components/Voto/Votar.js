@@ -18,6 +18,7 @@ const Votar = () => {
     try {
       setStatus("loading");
       setVoto(voto);
+      console.log(voto)
       const res = await fetch(`${process.env.REACT_APP_BACKEND}/recomendacion/${id}/votar`, {
         method: "POST",
         headers: {
@@ -25,7 +26,6 @@ const Votar = () => {
         },
         body: JSON.stringify({ voto })
       });
-
     const data = await res.json();
     if(!res.ok || data.status ==="error"){
       toast.error(data.message);
