@@ -1,25 +1,43 @@
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Comentar from "../../components/Comentar/Comentar";
 import Spinner from "../../components/Spinner/Spinner";
 import  Votar  from "../../components/Voto/Votar";
 import  useRecomendacion   from "../../hooks/UseRecomendacion"
-import   useUser  from "../../hooks/UseUser";
 import { RiDeleteBin6Line } from 'react-icons/ri';
+import getUserDataService from "../../services/GetUserData";
+
 
 const RecomendacionPage = () => {
   const { id } = useParams();
   const { recomendacion, loading } = useRecomendacion(id);
-  const usuario = useUser();
-  const idLogin = JSON.parse(localStorage.getItem('user')).id;
   const token = JSON.parse(localStorage.getItem('user')).token;
+  const [usuario, setUsuario] = useState([]);
+  const idLogin = JSON.parse(localStorage.getItem('user')).id;
   //Establecimiento del status y su set 
   const [status, setStatus] = useState("");
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const datos = getUserDataService(recomendacion.autor_id)
+    datos.then(data => {
+      const { datosUsuario } = data;
+      console.log(data)
+      const usuario = datosUsuario[0][0];
+      if (usuario) {
+      setUsuario({
+        key: usuario.id,
+        nombre: usuario.nombre,
+        avatar: usuario.avatar,
+        email: usuario.email,
+        created_at: usuario.created_at
+      })
+    }
+  })
+},[recomendacion.autor_id]);
 
   if (loading) {
     return <Spinner></Spinner>
@@ -49,11 +67,12 @@ const handleClick = async (e) => {
       setStatus("");
  }
 }
+const { nombre} = usuario;
 
     if (status === "loading") {
       return <Spinner />;
     }
-
+console.log(recomendacion)
   return (
     <>
       {recomendacion && (
@@ -68,7 +87,7 @@ const handleClick = async (e) => {
           <h3>{recomendacion.categoria}</h3>
           <p>{recomendacion.entradilla}</p>
           <p>{recomendacion.texto}</p>
-          <p>Creada por <Link to={`/usuario/${recomendacion.autor_id}/detalle`}>Autor</Link> {" "} 
+          <p>Creada por <Link to={`/usuario/${recomendacion.autor_id}/detalle`}>{nombre}</Link> {" "} 
          at {recomendacion.created_at}
         </p>
         </section>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 import Spinner from "../../components/Spinner/Spinner";
 import { toast } from "react-toastify";
 const {REACT_APP_BACKEND } = process.env;
@@ -9,18 +9,16 @@ function EditUser() {
   const token = JSON.parse(localStorage.getItem('user')).token;
   const [nombre, setNombre] = useState();
   const [email, setEmail] = useState();
-  const [nuevaContraseña, setNuevaContraseña] = useState();
   const [avatar, setAvatar] = useState();
   const [avatarPreview, setAvatarPreview] = useState();
   //Establecimiento del status y su set 
   const [status, setStatus] = useState("");
-
+  const navigate = useNavigate();
   useEffect(() => {
     setNombre(nombre);
     setEmail(email);
-    setNuevaContraseña(nuevaContraseña);
     setAvatarPreview(avatar);
-  }, [nombre, email, nuevaContraseña, avatar]);
+  }, [nombre, email, avatar]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,7 +27,6 @@ try{
   const formData = new FormData();
   formData.append("nombre", nombre);
   formData.append("email", email); 
-  formData.append("nuevaContraseña", nuevaContraseña); 
   formData.append("avatar", avatar); 
   
   const res = await fetch(`${REACT_APP_BACKEND}/usuario/${id}`, {
@@ -45,6 +42,7 @@ try{
     }
     else{
       toast.success("Se ha actualizado correctamente");
+      navigate("/");
     }
 
   } catch (error) {
@@ -82,15 +80,7 @@ try{
           onChange={(e) => setEmail(e.target.value)}
         />
       </label>
-      <label>
-        <span>Nueva contraseña:</span>
-        <input
-          name="contraseña"
-          type="password"
-          value={nuevaContraseña}
-          onChange={(e) => setNuevaContraseña(e.target.value)}
-        />
-      </label>
+
       <label>
         <span>Imagen:</span>
         <input

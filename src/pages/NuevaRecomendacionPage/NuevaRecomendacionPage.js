@@ -1,4 +1,5 @@
 import Spinner from "../../components/Spinner/Spinner";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 const {REACT_APP_BACKEND } = process.env;
@@ -14,7 +15,7 @@ const NuevaRecomendacion = () => {
  const token = JSON.parse(localStorage.getItem('user')).token;
   //Establecimiento del status y su set 
   const [status, setStatus] = useState("");
-
+  const navigate = useNavigate();
 
   useEffect(() => {
       setTitulo(titulo);
@@ -58,6 +59,7 @@ const NuevaRecomendacion = () => {
     toast.error(data.message);
     }
     else{
+      navigate("/")
       toast.success("Se ha publicado correctamente");
     }
 
