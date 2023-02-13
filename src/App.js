@@ -22,6 +22,7 @@ import Footer from "./components/Footer/Footer";
 //Import para día o noche
 import {ThemeProvider} from "./context/ThemeContext";
 import EditUser from "./pages/EditUserPage/EditUserPage";
+import ListRecomendaciones from "./pages/RecomendacionPage/ListRecomendacion";
 
 
 function App() {
@@ -32,6 +33,7 @@ function App() {
       <main>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/recomendaciones" element={<ListRecomendaciones/>} />
         <Route path="/about" element={<About/>} />
         <Route path="/usuario/login" element={<Login />} />
         <Route path="/usuario/crear" element={<Registro />} />

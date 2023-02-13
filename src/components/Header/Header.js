@@ -32,6 +32,11 @@ const Header = () => {
                     </Link>
                 </li>
                 <li>
+                    <Link to="/recomendaciones">
+                    Recomendaciones
+                    </Link>
+                </li>
+                <li>
                     <Link to="/about">
                     AboutUs
                     </Link>
@@ -56,8 +61,9 @@ const Header = () => {
               </li>
             </>
           )}
-
+      <li>
       <ThemeSwitcher />
+      </li>
       </ul>
       </nav>
     </header>

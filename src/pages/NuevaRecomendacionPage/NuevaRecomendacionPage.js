@@ -1,11 +1,14 @@
 import Spinner from "../../components/Spinner/Spinner";
+import { useThemeContext } from "../../context/ThemeContext";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import "./NuevaRecomendacionPage.css"
 const {REACT_APP_BACKEND } = process.env;
-const NuevaRecomendacion = () => {
 
+
+const NuevaRecomendacion = () => {
+  const { theme } = useThemeContext();
   const [titulo, setTitulo] = useState("");
   const [categoria, setCategoria] = useState("");
   const [lugar, setLugar] = useState("");
@@ -81,11 +84,11 @@ const NuevaRecomendacion = () => {
   };
 
   return (
-    <>
-    <h2>Nueva Recomendación</h2>
+    <main className={theme}>
     <form className="nuevaRecomendacion" onSubmit={handleSubmit}>
+    <h2>Nueva Recomendación</h2>
       <label>
-        <span>Titulo:</span>
+        <span>Titulo </span>
         <input
           name="titulo"
           value={titulo}
@@ -93,7 +96,7 @@ const NuevaRecomendacion = () => {
         />
       </label>
       <label>
-        <span>Categoria:</span>
+        <span>Categoria </span>
         <input
           name="categoria"
           type="text"
@@ -102,7 +105,7 @@ const NuevaRecomendacion = () => {
         />
       </label>
       <label>
-        <span>Lugar:</span>
+        <span>Lugar </span>
         <input
           name="lugar"
           type="text"
@@ -111,7 +114,7 @@ const NuevaRecomendacion = () => {
         />
       </label>
       <label>
-        <span>Entradilla</span>
+        <span>Entradilla </span>
         <input
           name="entradilla"
           type="text"
@@ -120,7 +123,7 @@ const NuevaRecomendacion = () => {
         />
       </label>
       <label>
-        <span>Texto</span>
+        <span>Texto </span>
         <textarea
           name="texto"
           type="text"
@@ -129,7 +132,7 @@ const NuevaRecomendacion = () => {
         />
       </label>
       <label>
-        <span>Foto:</span>
+        <span>Foto </span>
         <input
           className="image-picker"
           name="foto"
@@ -140,7 +143,7 @@ const NuevaRecomendacion = () => {
       </label>
       <button>Publicar recomendación</button>
     </form>
-    </>
+    </main>
   );
 }
 

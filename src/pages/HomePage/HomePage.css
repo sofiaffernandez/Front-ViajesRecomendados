@@ -5,15 +5,16 @@ main {
   text-align: center;
 }
 
-h1 {
+section.Presentacion h1,
+section.Voto h1 {
   font-size: 1.5rem;
   font-weight: bold;
   margin-top: 2rem;
   margin-bottom: 2rem;
   font-family: "Epilogue", sans-serif;
 }
-
-p {
+section.Presentacion p,
+section.Voto p {
 padding: 50px;
   font-size: 1.25rem;
   line-height: 1.5rem;
@@ -35,25 +36,39 @@ main section.Buscador
     display: flex;
     height: 100%;
     flex-direction: row;
-    align-items: center;
-    align-content: space-around;
-    text-align: left;
+    justify-content: flex-start;
+    justify-self:center;
+    align-self:center;
+    align-content: space-between;
     
+}
+main section.Presentacion img,
+main section.Voto img,
+main section.Buscador img {
+display: none;
 }
 
 
 main section.Presentacion p,
 main section.Voto p
-main section.Buscadpr p{
-
+main section.Buscador p{
+  align-self:center;
     text-align: left;
     gap:3rem;
-    float: left;
+
 }
 
 main section.Presentacion img,
 main section.Voto img{
-    float: right;
     width: 30rem;
 
 }
+
+@media (min-width: 600px) {
+  main section.Presentacion img,
+  main section.Voto img,
+  main section.Buscador img {
+  display: block;
+}
+  
+  }

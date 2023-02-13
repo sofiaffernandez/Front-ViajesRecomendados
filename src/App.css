@@ -21,26 +21,26 @@ ul {
 }
 
 
-main{
+main.light{
   background-color:rgb(255, 255, 255);
   color: black;
   min-height: calc(100vh - 8rem);
   display:flex;
   flex-direction: column;
 }
-main a{
+main.light a{
   color: rgb(26, 1, 139);
   text-decoration: none;
 }
 
-main.night {
+main.dark {
   background-color: #292730;
   color: white;
   min-height: calc(100vh - 8rem);
   display: flex;
   flex-direction: column;
 } 
-main.night a{
+main.dark a{
   color: rgb(147, 195, 207);
   text-decoration: none;
 }

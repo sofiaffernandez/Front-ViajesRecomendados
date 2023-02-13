@@ -6,6 +6,8 @@ div.about{
     flex-direction: column;
   }
   div.about h2{
+    position: fixed;
+    margin-top: -5rem;
     align-self: center;
     font-family: "baloo 2", sans-serif;
     padding: 1rem;

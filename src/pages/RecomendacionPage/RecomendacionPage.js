@@ -10,8 +10,10 @@ import  useRecomendacion   from "../../hooks/UseRecomendacion"
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import getUserDataService from "../../services/GetUserData";
 import "./RecomendacionPage.css"
+import { useThemeContext } from "../../context/ThemeContext";
 
 const RecomendacionPage = () => {
+  const { theme } = useThemeContext();
   const { id } = useParams();
   const { recomendacion, loading } = useRecomendacion(id);
   let token;
@@ -82,7 +84,8 @@ const { nombre} = usuario;
     }
 console.log(recomendacion)
   return (
-    <main className="UnicaRecomendacion">
+    <main className={theme}>
+    <section className="UnicaRecomendacion">
       {recomendacion && (
         <section>
           <h2>{recomendacion.titulo}</h2>
@@ -123,6 +126,7 @@ console.log(recomendacion)
                   ) : (
                     null
                   )}
+    </section>
     </main>
   );
 };

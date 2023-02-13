@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Spinner from "../../components/Spinner/Spinner";
 //import para ver los errores en pantalla para el usuario
 import { toast } from "react-toastify";
-
+import { useThemeContext } from "../../context/ThemeContext";
 import { useSetUser } from "../../context/UserContext";
 import "./LoginPage.css"
 
@@ -17,7 +17,7 @@ const Login = () => {
     const [contraseña, setContraseña] = useState("");
     //Establecimiento del status y su set 
     const [status, setStatus] = useState("");
-
+const { theme } = useThemeContext();
 
   const handleSubmit = async (e) => {
     try {
@@ -56,7 +56,7 @@ const Login = () => {
   }
   
   return (
-    <main className="login">
+    <main className={theme}>
       <form className="login" onSubmit={handleSubmit}>
         <h2>¡Hola de nuevo!</h2>
         <ul>

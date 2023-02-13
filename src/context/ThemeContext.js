@@ -2,13 +2,13 @@ import { useState, useContext, createContext } from "react";
 const ThemeContext = createContext();
 
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useState("day");
+  const [theme, setTheme] = useState("light");
 
   const toggleTheme = () => {
-    if (theme === "day") {
-      setTheme("night");
+    if (theme === "light") {
+      setTheme("dark");
     } else {
-      setTheme("day");
+      setTheme("light");
     }
   };
 

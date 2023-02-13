@@ -1,4 +1,4 @@
-
+import { useThemeContext } from "../../context/ThemeContext";
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import getUserDataService from "../../services/GetUserData";
@@ -9,7 +9,7 @@ const PaginaUsuario = () => {
   const { id } = useParams();
   const [usuario, setUsuario] = useState([]);
   const [comentariosUsuario, setComentariosUsuario] = useState([])
-
+  const { theme } = useThemeContext();
   let idLogin;
   if (localStorage.getItem('user')) {
     idLogin = JSON.parse(localStorage.getItem('user')).id;
@@ -45,7 +45,7 @@ const PaginaUsuario = () => {
  
   
    return (
-     <main className='mainPerfil'>
+     <main className={theme}>
        <section className='Perfil'>
       <h2>Perfil de {nombre}</h2>
           <h3>Nombre: {nombre}</h3>

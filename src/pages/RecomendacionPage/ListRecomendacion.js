@@ -2,16 +2,19 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { GetAllRecomendaciones } from "../../services/GetAllRecomendaciones";
 import "./ListRecomendacion.css"
+import { useThemeContext } from "../../context/ThemeContext";
 
 const ListRecomendaciones = () => {
   const [recomendaciones, setRecomendaciones] = useState([]);
   const [page, setPage] = useState(0);
- 
+  const { theme } = useThemeContext();
+  
   useEffect(() => {
     GetAllRecomendaciones(page).then((data) => setRecomendaciones(data));
   }, [page]);
 
   return (
+    <main className={theme}>
     <section>
       <ul className="listaRecomendaciones">
         {recomendaciones.length > 0 ? (
@@ -37,6 +40,7 @@ const ListRecomendaciones = () => {
       Siguientes
       </button>}
   </section>
+  </main>
   )
 };
 
