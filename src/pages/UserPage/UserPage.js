@@ -29,38 +29,15 @@ const PaginaUsuario = () => {
     }
     const {datosRecomendacionesUsuario} = data
     const recomendaciones = datosRecomendacionesUsuario[0]
-    for (let i= 0; i < recomendaciones.length; i++){
-      if(recomendaciones.length > 0){
-      setRecomendaciones({
-        titulo:recomendaciones[i].titulo,
-        lugar: recomendaciones[i].lugar,
-        entradilla: recomendaciones[i].entradilla,
-        categoria:recomendaciones[i].categoria,
-        recomendacionId: recomendaciones[i].id
-      })
-    }
-    } 
-
+      setRecomendaciones(recomendaciones)
     const {datosComentariosUsuarios} = data
     const comentariosUsuario = datosComentariosUsuarios[0]
-    for (let i= 0; i < datosComentariosUsuarios.length; i++){
-      if(comentariosUsuario.length > 0){
-        setComentariosUsuario({
-         comentario:comentariosUsuario[i].comentario,
-         created: comentariosUsuario[i].created,
-         recomendacion_id: comentariosUsuario[i].recomendacion_id,
-         comentarioId:recomendaciones[i].comentarioId
-       })
-      }
-    }
-
-  })
-  },[id]);
+    setComentariosUsuario(comentariosUsuario)   
+})},[id]);
 
 
   const { usuarioId, nombre, avatar, email, created_at } = usuario;
-const {titulo, lugar, entradilla, categoria, recomendacionId} = recomendaciones
-  const { comentarioId, comentario, created } = comentariosUsuario; 
+ 
   
    return (
     <>
@@ -87,16 +64,16 @@ const {titulo, lugar, entradilla, categoria, recomendacionId} = recomendaciones
         <section>
           <h2> Recomendaciones de {nombre} </h2>
           {recomendaciones.length > 0 ?  ( 
-          <li key={recomendacionId} > 
-          <Link to={`/recomendacion/${recomendacionId}/detalle`}>
-             <h3>{titulo}</h3>
+            recomendaciones.map((recomendacion) =>
+          <li key={recomendacion.id} > 
+          <Link to={`/recomendacion/${recomendacion.id}/detalle`}>
+             <h3>{recomendacion.titulo}</h3>
           </Link>
-              <h4>{lugar}</h4>
-              <h4>{categoria}</h4>
-              <p>{entradilla}</p>
-          </li>
-    
-
+              <h4>{recomendacion.lugar}</h4>
+              <h4>{recomendacion.categoria}</h4>
+              <p>{recomendacion.entradilla}</p>
+          </li> 
+            )
         ) : (
           <p>Parece que de momento no hay recomendaciones para mostrar.</p>
           )}
@@ -104,12 +81,12 @@ const {titulo, lugar, entradilla, categoria, recomendacionId} = recomendaciones
         <section>
           <h2> Comentarios de {nombre} </h2>
           {comentariosUsuario.length > 0 ? (
-        comentariosUsuario.map((comentarios) => (
-                  <li key={comentarioId} > 
-                      <p>{comentario}</p>   
-                      <p>{created}</p>  
-                      <Link to={`/recomendacion/${recomendacionId}/detalle`}>
-                     <p>Comentario en recomendacion: {titulo}</p>
+        comentariosUsuario.map((comentario) => (
+                  <li key={comentario.id} > 
+                      <p>{comentario.comentario}</p>   
+                      <p>{comentario.created_at}</p>  
+                      <Link to={`/recomendacion/${comentario.recomendacion_id}/detalle`}>
+                     <p>Comentario en recomendacion: </p>
                      </Link>  
                   </li>
         ))

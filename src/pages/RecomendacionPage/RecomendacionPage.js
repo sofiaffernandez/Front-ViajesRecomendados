@@ -78,8 +78,8 @@ console.log(recomendacion)
       {recomendacion && (
         <section>
           <h2>{recomendacion.titulo}</h2>
-          { recomendacion.image != null ? (
-                  <img src={recomendacion.image} alt={recomendacion.titulo} />
+          { recomendacion.foto != null ? (
+                  <img src={recomendacion.foto} alt={recomendacion.titulo} />
                   ) : (
                     null
                   )}
