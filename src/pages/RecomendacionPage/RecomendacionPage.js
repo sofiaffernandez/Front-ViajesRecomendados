@@ -9,14 +9,22 @@ import  Votar  from "../../components/Voto/Votar";
 import  useRecomendacion   from "../../hooks/UseRecomendacion"
 import { RiDeleteBin6Line } from 'react-icons/ri';
 import getUserDataService from "../../services/GetUserData";
-
+import "./RecomendacionPage.css"
 
 const RecomendacionPage = () => {
   const { id } = useParams();
   const { recomendacion, loading } = useRecomendacion(id);
-  const token = JSON.parse(localStorage.getItem('user')).token;
+  let token;
+  if (localStorage.getItem('user')) {
+    token = JSON.parse(localStorage.getItem('user')).token;
+  } 
+  
+  let idLogin;
+  if (localStorage.getItem('user')) {
+    idLogin = JSON.parse(localStorage.getItem('user')).id;
+  } 
+  
   const [usuario, setUsuario] = useState([]);
-  const idLogin = JSON.parse(localStorage.getItem('user')).id;
   //Establecimiento del status y su set 
   const [status, setStatus] = useState("");
   const navigate = useNavigate();
@@ -74,7 +82,7 @@ const { nombre} = usuario;
     }
 console.log(recomendacion)
   return (
-    <>
+    <main className="UnicaRecomendacion">
       {recomendacion && (
         <section>
           <h2>{recomendacion.titulo}</h2>
@@ -83,7 +91,7 @@ console.log(recomendacion)
                   ) : (
                     null
                   )}
-          <h3>{recomendacion.lugar}</h3>
+          <h3>📍{recomendacion.lugar}</h3>
           <h3>{recomendacion.categoria}</h3>
           <p>{recomendacion.entradilla}</p>
           <p>{recomendacion.texto}</p>
@@ -92,14 +100,21 @@ console.log(recomendacion)
         </p>
         </section>
       )}
-       { usuario ? (
+       { token ? (
                 <section>
                   <Votar /> 
-                  <Comentar />
                 </section>
                   ) : (
                     <p> Registrate para poder votar </p>
                   )}
+     {token ? (
+                 <section>
+                  <Comentar /> 
+                </section>
+                  ) : (
+                    <p> Registrate para poder comentar </p>
+                  )}
+
          { recomendacion.autor_id === idLogin ? (
                 <section>
                    < RiDeleteBin6Line onClick={handleClick}/>
@@ -108,7 +123,7 @@ console.log(recomendacion)
                   ) : (
                     null
                   )}
-    </>
+    </main>
   );
 };
 

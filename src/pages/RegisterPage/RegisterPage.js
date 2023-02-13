@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import Spinner from "../../components/Spinner/Spinner";
-
+import "./RegisterPage.css"
 
 const Registro = ({ setUser }) => {
   const { REACT_APP_BACKEND} = process.env;

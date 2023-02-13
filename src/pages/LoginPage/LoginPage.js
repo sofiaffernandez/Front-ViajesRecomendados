@@ -6,6 +6,7 @@ import Spinner from "../../components/Spinner/Spinner";
 import { toast } from "react-toastify";
 
 import { useSetUser } from "../../context/UserContext";
+import "./LoginPage.css"
 
 const Login = () => {
   const setUser = useSetUser();

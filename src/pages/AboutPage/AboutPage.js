@@ -1,4 +1,5 @@
 import { useThemeContext } from "../../context/ThemeContext";
+import "./AboutPage.css"
 function About() {
   const { theme } = useThemeContext();
     return (

@@ -4,12 +4,17 @@ import { useParams } from "react-router-dom";
 import getUserDataService from "../../services/GetUserData";
 import { Link } from "react-router-dom";
 import {TbEdit} from  "react-icons/tb"
-
+import "./UserPage.css"
 const PaginaUsuario = () => {
   const { id } = useParams();
   const [usuario, setUsuario] = useState([]);
   const [comentariosUsuario, setComentariosUsuario] = useState([])
-  const idLogin = JSON.parse(localStorage.getItem('user')).id;
+
+  let idLogin;
+  if (localStorage.getItem('user')) {
+    idLogin = JSON.parse(localStorage.getItem('user')).id;
+  } 
+  
   const [recomendaciones, setRecomendaciones] = useState([]);
 
   useEffect(() => {
@@ -40,9 +45,9 @@ const PaginaUsuario = () => {
  
   
    return (
-    <>
-       <section>
-        <h2>Perfil</h2>
+     <main className='mainPerfil'>
+       <section className='Perfil'>
+      <h2>Perfil de {nombre}</h2>
           <h3>Nombre: {nombre}</h3>
            <h3>Email: {email} </h3>
            <p>Creado en {created_at}</p>
@@ -51,8 +56,6 @@ const PaginaUsuario = () => {
         ) : (
           <p>Parece que de momento no tiene avatar.</p>
           )}
-        </section>
-        <section>
         {id == idLogin ? (
              <Link to={`/usuario/${usuarioId}`}>
                <TbEdit />
@@ -61,7 +64,7 @@ const PaginaUsuario = () => {
               null
               )}
         </section>
-        <section>
+    <section className='RecomendacionesPerfil'>
           <h2> Recomendaciones de {nombre} </h2>
           {recomendaciones.length > 0 ?  ( 
             recomendaciones.map((recomendacion) =>
@@ -78,7 +81,7 @@ const PaginaUsuario = () => {
           <p>Parece que de momento no hay recomendaciones para mostrar.</p>
           )}
         </section>
-        <section>
+        <section className='ComentariosPerfil'>
           <h2> Comentarios de {nombre} </h2>
           {comentariosUsuario.length > 0 ? (
         comentariosUsuario.map((comentario) => (
@@ -94,7 +97,7 @@ const PaginaUsuario = () => {
           <p>Parece que de momento no hay comentarios para mostrar.</p>
           )}
         </section>
-    </>
+    </main>
        );
     };
  export default PaginaUsuario;

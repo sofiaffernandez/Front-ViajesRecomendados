@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Epilogue:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Lilita+One&family=Sniglet:wght@400;800&display=swap');
+
+main {
+  background-color: #f2f2f2;
+  text-align: center;
+}
+
+h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  font-family: "Epilogue", sans-serif;
+}
+
+p {
+padding: 50px;
+  font-size: 1.25rem;
+  line-height: 1.5rem;
+  font-family: "Baloo 2", sans-serif;
+}
+
+h2 {
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+main section.Presentacion,
+main section.Voto,
+main section.Buscador
+{
+  border-bottom: 3px solid #ccc;
+  padding-top: 1rem;
+    display: flex;
+    height: 100%;
+    flex-direction: row;
+    align-items: center;
+    align-content: space-around;
+    text-align: left;
+    
+}
+
+
+main section.Presentacion p,
+main section.Voto p
+main section.Buscadpr p{
+
+    text-align: left;
+    gap:3rem;
+    float: left;
+}
+
+main section.Presentacion img,
+main section.Voto img{
+    float: right;
+    width: 30rem;
+
+}
