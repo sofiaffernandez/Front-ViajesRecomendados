@@ -14,6 +14,7 @@ const Comentar = () => {
 
 const handleSubmit = async (e) => {
     e.preventDefault();
+    if(!comentario) return;
 try{
   setStatus("loading");
   const formData = new FormData();
@@ -23,7 +24,7 @@ try{
     headers: {
       Authorization: token,
     },
-    body: JSON.stringify({ comentario })
+    body: comentario,
   });
 
   const data = await res.json();
@@ -56,13 +57,19 @@ return (
         onChange={(e) => setComentario(e.target.value)}/>
     <button type="submit">Comentar</button>
 </form>
-<ul>
-  {comentarios.map(comentario => (
-    <li key={comentario.id}>{comentario.comentario}</li>
-  ))}
+<ul className="listacomentarios">
+{comentarios.length > 0 ? (
+  comentarios.map(comentario => (
+    <li key={comentario.id}>
+      <p> {comentario.comentario}</p>
+    </li>
+  ))
+):(
+<p>Parece que de momento no hay comentarios en esta recomendacion</p>
+)}
 </ul>
 </>
-    )
+  )
 }
 
 export default Comentar;
