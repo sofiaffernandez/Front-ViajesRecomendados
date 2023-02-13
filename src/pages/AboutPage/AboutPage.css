@@ -13,6 +13,7 @@ div.about{
   div.about p{
     font-family: "Epilogue", sans-serif;
     padding: 1rem;
+    text-align: justify;
   }
   div.about ul{
     padding-left: 1.5rem;

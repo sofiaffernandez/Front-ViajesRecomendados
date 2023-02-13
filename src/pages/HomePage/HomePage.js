@@ -21,8 +21,8 @@ function Home() {
       </section>
       <h2>Vota y comenta las recomendaciones.</h2>
     <section className="Voto">
-      <p>Otros usuarios pueden votar y comentar tus recomendaciones. Esto te ayudará a descubrir los mejores planes y a encontrar los mejores consejos sobre un destino que te interese.</p>
       <img src={chicosplaya} />
+      <p>Otros usuarios pueden votar y comentar tus recomendaciones. Esto te ayudará a descubrir los mejores planes y a encontrar los mejores consejos sobre un destino que te interese.</p>
       </section>
       <section  className="recomendaciones">
       <h3> Últimas recomendaciones </h3>

@@ -26,7 +26,7 @@ overflow: hidden;
     height: 20rem;
    
   }
-section button{
+section button.listarrecomendacion{
   background: #5E5DF0;
   margin: 1rem;
   border-radius: 999px;

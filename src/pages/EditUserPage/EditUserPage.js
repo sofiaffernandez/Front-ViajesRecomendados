@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../../components/Spinner/Spinner";
 import { toast } from "react-toastify";
+import "./EditUserPage.css"
 const {REACT_APP_BACKEND } = process.env;
 
 function EditUser() {
@@ -62,7 +63,9 @@ try{
   };
 
   return (
-    <form className="useracter edit" onSubmit={handleSubmit}>
+    <main className="useedit">
+    <form className="useredit" onSubmit={handleSubmit}>
+      <h2>Edita tu información </h2>
       <label>
         <span>Nombre:</span>
         <input
@@ -93,6 +96,8 @@ try{
       </label>
       <button>Guardar cambios</button>
     </form>
+
+    </main>
   );
 }
 

@@ -30,10 +30,10 @@ const ListRecomendaciones = () => {
           <p>Parece que de momento no hay recomendaciones para mostrar.</p>
           )}
       </ul>
-      {page > 0 && <button onClick={() => setPage(page - 1)}>
+      {page > 0 && <button className="listarrecomendacion" onClick={() => setPage(page - 1)}>
       Anteriores
       </button>}
-      {page * 10 + 10 < recomendaciones.length && <button onClick={() => setPage(page + 1)}>
+      {page * 10 + 10 < recomendaciones.length && <button className="listarrecomendacion"onClick={() => setPage(page + 1)}>
       Siguientes
       </button>}
   </section>

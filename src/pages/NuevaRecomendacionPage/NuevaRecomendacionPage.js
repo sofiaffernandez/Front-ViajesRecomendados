@@ -2,6 +2,7 @@ import Spinner from "../../components/Spinner/Spinner";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import "./NuevaRecomendacionPage.css"
 const {REACT_APP_BACKEND } = process.env;
 const NuevaRecomendacion = () => {
 
@@ -82,7 +83,7 @@ const NuevaRecomendacion = () => {
   return (
     <>
     <h2>Nueva Recomendación</h2>
-    <form className="nuevaRecomendación" onSubmit={handleSubmit}>
+    <form className="nuevaRecomendacion" onSubmit={handleSubmit}>
       <label>
         <span>Titulo:</span>
         <input
