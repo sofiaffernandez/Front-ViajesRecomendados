@@ -42,7 +42,7 @@ const PaginaUsuario = () => {
 
 
   const { usuarioId, nombre, avatar, email, created_at } = usuario;
- const {titulo } = recomendaciones[0] 
+ const {titulo } = recomendaciones
   console.log(recomendaciones)
    return (
      <main className={theme}>
@@ -50,7 +50,7 @@ const PaginaUsuario = () => {
       <h2>Perfil de {nombre}</h2>
           <h3>Nombre: {nombre}</h3>
            <h3>Email: {email} </h3>
-           <p>Creado en {created_at}</p>
+           <p>Creado en {new Date(created_at).toLocaleDateString('es-ES')}</p>
            {avatar  ? (
              <img src={avatar} alt="Avatar"></img>
         ) : (

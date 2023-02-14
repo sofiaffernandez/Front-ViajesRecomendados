@@ -25,3 +25,8 @@ section.UnicaRecomendacion p{
     padding: 0.5rem;
     text-align: justify;
 }
+section.UnicaRecomendacion img{
+    display: block;
+    width: 100px;
+    height: 100px;
+}

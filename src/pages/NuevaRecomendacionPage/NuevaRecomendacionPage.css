@@ -64,7 +64,13 @@ form.loginregistro  {
 button:hover {
   opacity: 0.8;
 }
+.preview-image {
+  display: none;
+}
 @media (min-width: 600px) { 
-
+.preview-image {
+  display: block;
+ 
+}
 }
 

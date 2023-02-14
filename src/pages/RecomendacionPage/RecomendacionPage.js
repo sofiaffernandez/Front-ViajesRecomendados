@@ -13,13 +13,20 @@ import "./RecomendacionPage.css"
 import { useThemeContext } from "../../context/ThemeContext";
 import { GetFotoRecomendacion } from "../../services/GetFotoRecomendacion";
 import GetAllComentarios from "../../services/GetAllComentariosRecomendacion";
+import { GetAllUsers } from "../../services/GetAllUsers";
 
 
 const RecomendacionPage = () => {
   const { theme } = useThemeContext();
   const { id } = useParams();
   const { recomendacion, loading } = useRecomendacion(id);
-
+  const [usuarios, setUsuarios] = useState([]);
+  const usuariosPromise = GetAllUsers();
+  useEffect(() => {
+    usuariosPromise.then(data => {
+      setUsuarios(data);
+    });
+  }, [usuariosPromise]);
 
   let token;
   if (localStorage.getItem('user')) {
@@ -38,6 +45,7 @@ const RecomendacionPage = () => {
   const [fotos, setFotos] = useState([]);
   const [comentarios, setComentarios] = useState([]);
   const [avgVotos, setMediaVotos] = useState([]);
+
 
 
   useEffect(() => {
@@ -79,8 +87,17 @@ const RecomendacionPage = () => {
     setMediaVotos(avgVotos.AVG)  
    
    })
+   
+    const dataC =  GetAllComentarios(id);
+    dataC.then(data =>{
+      const { datosComentarios } = data;
+      const comentarios = datosComentarios[0];
+      setComentarios(comentarios);
+    }
+      )
  })
 },[recomendacion.autor_id]);
+
 
   if (loading) {
     return <Spinner></Spinner>
@@ -113,6 +130,7 @@ const handleClick = async (e) => {
 const { nombre} = usuario;
 const {foto} = fotos; 
 
+
     if (status === "loading") {
       return <Spinner />;
     }
@@ -122,17 +140,19 @@ const {foto} = fotos;
       {recomendacion && (
         <section>
           <h2>{recomendacion.titulo}</h2>
-          { foto  ? (
-                  <img src={`${process.env.REACT_APP_BACKEND}/ImagenesProyectoViajes/${foto}`} alt={recomendacion.titulo} />
-                  ) : (
-                    null
-                  )}
+          { foto ? (
+            <img src={`${process.env.REACT_APP_BACKEND}/public/${foto}`} alt={recomendacion.titulo} />
+
+          ):(
+                null )
+          }
+                 
           <h3>📍{recomendacion.lugar}</h3>
           <h3>{recomendacion.categoria}</h3>
           <p>{recomendacion.entradilla}</p>
           <p>{recomendacion.texto}</p>
           <p>Creada por <Link to={`/usuario/${recomendacion.autor_id}/detalle`}>{nombre}</Link> {" "} 
-         at {recomendacion.created_at}
+         at {new Date(recomendacion.created_at).toLocaleDateString('es-ES')}
         </p>
         </section>
       )}
@@ -161,17 +181,26 @@ const {foto} = fotos;
                     <p> Registrate para poder comentar </p>
                   )}
               <ul className="listacomentarios">
-            {comentarios.length > 0 ? (
-              comentarios.map(comentario => (
-                <li key={comentario.id}>
-                  <p> {comentario.comentario}</p>
-                  <p>{comentario.created_at}</p>
-                  <p>Comentario por <Link to={`/usuario/${comentario.usuario_id}/detalle`}>Autor</Link></p>
-                </li>
-              ))
-            ):(
-            <p>Parece que de momento no hay comentarios en esta recomendacion</p>
-            )}
+              {comentarios.length > 0 ? (
+        <ul>
+          {comentarios.map((comentario) => {
+            const usuario = usuarios.find(
+              (usuario) => usuario.id === comentario.usuario_id
+            );
+            return (
+              <li key={comentario.id}>
+                <p>{comentario.comentario}</p>
+                <p>{new Date(comentario.created_at).toLocaleDateString('es-ES')}</p>
+                <Link to={`/usuario/${comentario.usuario_id}/detalle`}>
+                  <p>Comentario hecho por {usuario.nombre}</p>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      ) : (
+        <p>Parece que de momento no hay comentarios en esta recomendacion</p>
+      )}
             </ul>
     </section>
     </main>

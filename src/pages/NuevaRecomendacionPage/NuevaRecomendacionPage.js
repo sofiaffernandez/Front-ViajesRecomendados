@@ -139,7 +139,7 @@ const NuevaRecomendacion = () => {
           type="file"
           onChange={handleFile}
         />
-        {fotoPreview && <img src={fotoPreview} alt="preview" />}
+        {fotoPreview && <img src={fotoPreview} alt="preview"  className="preview-image"/>}
       </label>
       <button>Publicar recomendación</button>
     </form>

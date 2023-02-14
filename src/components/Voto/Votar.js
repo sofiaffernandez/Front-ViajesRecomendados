@@ -15,16 +15,18 @@ const Votar = () => {
   
   const handleClickRating = async (e, voto) => {
     e.preventDefault();
+    
     try {
       setStatus("loading");
       setVoto(voto);
-      console.log(voto)
+      
       const res = await fetch(`${process.env.REACT_APP_BACKEND}/recomendacion/${id}/votar`, {
         method: "POST",
         headers: {
           Authorization: token,
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify({ voto })
+        body: JSON.stringify({ voto: voto })
       });
 
     const data = await res.json();
