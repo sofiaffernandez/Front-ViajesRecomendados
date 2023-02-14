@@ -26,6 +26,7 @@ const Votar = () => {
         },
         body: JSON.stringify({ voto })
       });
+
     const data = await res.json();
     if(!res.ok || data.status ==="error"){
       toast.error(data.message);

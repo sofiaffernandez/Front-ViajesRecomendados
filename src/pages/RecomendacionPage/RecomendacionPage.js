@@ -14,10 +14,12 @@ import { useThemeContext } from "../../context/ThemeContext";
 import { GetFotoRecomendacion } from "../../services/GetFotoRecomendacion";
 import GetAllComentarios from "../../services/GetAllComentariosRecomendacion";
 
+
 const RecomendacionPage = () => {
   const { theme } = useThemeContext();
   const { id } = useParams();
   const { recomendacion, loading } = useRecomendacion(id);
+
 
   let token;
   if (localStorage.getItem('user')) {
@@ -35,6 +37,7 @@ const RecomendacionPage = () => {
   const navigate = useNavigate();
   const [fotos, setFotos] = useState([]);
   const [comentarios, setComentarios] = useState([]);
+  const [avgVotos, setMediaVotos] = useState([]);
 
 
   useEffect(() => {
@@ -68,6 +71,13 @@ const RecomendacionPage = () => {
     const {datosComentarios} = data
     const comentarios = datosComentarios[0]
     setComentarios(comentarios)   
+   })
+   const votoDato = GetAllComentarios(id)
+   votoDato.then(data => {
+    const {mediaVotos} = data;
+    const avgVotos = mediaVotos[0][0]
+    setMediaVotos(avgVotos.AVG)  
+   
    })
  })
 },[recomendacion.autor_id]);
@@ -113,7 +123,7 @@ const {foto} = fotos;
         <section>
           <h2>{recomendacion.titulo}</h2>
           { foto  ? (
-                  <img src={foto} alt={recomendacion.titulo} />
+                  <img src={`${process.env.REACT_APP_BACKEND}/ImagenesProyectoViajes/${foto}`} alt={recomendacion.titulo} />
                   ) : (
                     null
                   )}
@@ -137,6 +147,8 @@ const {foto} = fotos;
        { token ? (
                 <section>
                   <Votar /> 
+                 <p>{avgVotos}</p>
+    
                 </section>
                   ) : (
                     <p> Registrate para poder votar </p>

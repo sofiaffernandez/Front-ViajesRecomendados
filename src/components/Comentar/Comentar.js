@@ -24,7 +24,7 @@ try{
     headers: {
       Authorization: token,
     },
-    body: comentario,
+    body: formData,
   });
 
   const data = await res.json();
