@@ -12,12 +12,13 @@ import getUserDataService from "../../services/GetUserData";
 import "./RecomendacionPage.css"
 import { useThemeContext } from "../../context/ThemeContext";
 import { GetFotoRecomendacion } from "../../services/GetFotoRecomendacion";
+import GetAllComentarios from "../../services/GetAllComentariosRecomendacion";
 
 const RecomendacionPage = () => {
   const { theme } = useThemeContext();
   const { id } = useParams();
   const { recomendacion, loading } = useRecomendacion(id);
- 
+
   let token;
   if (localStorage.getItem('user')) {
     token = JSON.parse(localStorage.getItem('user')).token;
@@ -33,12 +34,13 @@ const RecomendacionPage = () => {
   const [status, setStatus] = useState("");
   const navigate = useNavigate();
   const [fotos, setFotos] = useState([]);
+  const [comentarios, setComentarios] = useState([]);
+
 
   useEffect(() => {
     const datos = getUserDataService(recomendacion.autor_id)
     datos.then(data => {
       const { datosUsuario } = data;
-  
       const usuario = datosUsuario[0][0];
       if (usuario) {
       setUsuario({
@@ -54,15 +56,19 @@ const RecomendacionPage = () => {
  dato.then(data => {
   const { fotosRecomendacion } = data;
   const fotos = fotosRecomendacion[0][0];
-  console.log(fotos)
    if (fotos){
      setFotos({
     key:fotos.id,
     created_at:fotos.created_at,
     foto:fotos.foto,
-
     })
    }
+   const date = GetAllComentarios(id)
+   date.then(data => {
+    const {datosComentarios} = data
+    const comentarios = datosComentarios[0]
+    setComentarios(comentarios)   
+   })
  })
 },[recomendacion.autor_id]);
 
@@ -96,6 +102,7 @@ const handleClick = async (e) => {
 }
 const { nombre} = usuario;
 const {foto} = fotos; 
+
     if (status === "loading") {
       return <Spinner />;
     }
@@ -119,6 +126,14 @@ const {foto} = fotos;
         </p>
         </section>
       )}
+                  { recomendacion.autor_id === idLogin ? (
+                         <section>
+                            < RiDeleteBin6Line onClick={handleClick}/>
+                     
+                         </section>
+                           ) : (
+                             null
+                           )}
        { token ? (
                 <section>
                   <Votar /> 
@@ -133,15 +148,19 @@ const {foto} = fotos;
                   ) : (
                     <p> Registrate para poder comentar </p>
                   )}
-
-         { recomendacion.autor_id === idLogin ? (
-                <section>
-                   < RiDeleteBin6Line onClick={handleClick}/>
-            
-                </section>
-                  ) : (
-                    null
-                  )}
+              <ul className="listacomentarios">
+            {comentarios.length > 0 ? (
+              comentarios.map(comentario => (
+                <li key={comentario.id}>
+                  <p> {comentario.comentario}</p>
+                  <p>{comentario.created_at}</p>
+                  <p>Comentario por <Link to={`/usuario/${comentario.usuario_id}/detalle`}>Autor</Link></p>
+                </li>
+              ))
+            ):(
+            <p>Parece que de momento no hay comentarios en esta recomendacion</p>
+            )}
+            </ul>
     </section>
     </main>
   );

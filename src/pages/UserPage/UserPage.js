@@ -42,8 +42,8 @@ const PaginaUsuario = () => {
 
 
   const { usuarioId, nombre, avatar, email, created_at } = usuario;
- 
-  
+ const {titulo } = recomendaciones[0] 
+  console.log(recomendaciones)
    return (
      <main className={theme}>
        <section className='Perfil'>
@@ -85,11 +85,11 @@ const PaginaUsuario = () => {
           <h2> Comentarios de {nombre} </h2>
           {comentariosUsuario.length > 0 ? (
         comentariosUsuario.map((comentario) => (
-                  <li key={comentario.id} > 
-                      <p>{comentario.comentario}</p>   
-                      <p>{comentario.created_at}</p>  
+                  <li key={comentario.id} >
+                    <p>{titulo}</p>
+                     <p>{comentario.comentario} </p>
                       <Link to={`/recomendacion/${comentario.recomendacion_id}/detalle`}>
-                     <p>Comentario en recomendacion: </p>
+                      <p>{comentario.created_at}</p>  
                      </Link>  
                   </li>
         ))

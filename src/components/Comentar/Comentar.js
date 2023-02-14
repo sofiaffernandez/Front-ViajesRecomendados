@@ -57,19 +57,7 @@ return (
         onChange={(e) => setComentario(e.target.value)}/>
     <button type="submit">Comentar</button>
 </form>
-<ul className="listacomentarios">
-{comentarios.length > 0 ? (
-  comentarios.map(comentario => (
-    <li key={comentario.id}>
-      <p> {comentario.comentario}</p>
-    </li>
-  ))
-):(
-<p>Parece que de momento no hay comentarios en esta recomendacion</p>
-)}
-</ul>
 </>
-  )
-}
+)}
 
 export default Comentar;

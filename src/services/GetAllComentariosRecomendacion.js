@@ -1,14 +1,12 @@
  const GetAllComentarios = async (id) => {
-    const res = await fetch(`${process.env.REACT_APP_BACKEND}/recomendaciones/${id}/comentar`);
-    
-  
-    const data = await res.json();
-  
-    if (!res.ok) {
-      throw new Error(data.message);
-    }
-  
-    return data.data;
-  };
 
+    const res = await fetch(`${process.env.REACT_APP_BACKEND}/recomendacion/${id}/detalle`);
+
+    const json = await res.json();
+    if (!res.ok || json.status === "error") {
+      throw new Error(json.message);
+    }
+    console.log(json.data.detalle)
+    return json.data.detalle
+  };
   export default GetAllComentarios
