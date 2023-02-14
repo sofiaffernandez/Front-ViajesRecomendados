@@ -8,7 +8,7 @@ export default function NotFoundPage () {
     <main className={theme}>
       <div className="error">
       <img className="fotoViajero" src={chicoviajero} alt="chico joven con el mapamundi detrás"/>
-    <ErrorMessage message={"Conocemos muchos recobecos del mundo, pero este aún no"} />
+    <ErrorMessage message={"Conocemos muchos recovecos del mundo, pero este aún no"} />
 
       </div>
     </main>

@@ -11,11 +11,13 @@ import { RiDeleteBin6Line } from 'react-icons/ri';
 import getUserDataService from "../../services/GetUserData";
 import "./RecomendacionPage.css"
 import { useThemeContext } from "../../context/ThemeContext";
+import { GetFotoRecomendacion } from "../../services/GetFotoRecomendacion";
 
 const RecomendacionPage = () => {
   const { theme } = useThemeContext();
   const { id } = useParams();
   const { recomendacion, loading } = useRecomendacion(id);
+ 
   let token;
   if (localStorage.getItem('user')) {
     token = JSON.parse(localStorage.getItem('user')).token;
@@ -30,12 +32,13 @@ const RecomendacionPage = () => {
   //Establecimiento del status y su set 
   const [status, setStatus] = useState("");
   const navigate = useNavigate();
+  const [fotos, setFotos] = useState([]);
 
   useEffect(() => {
     const datos = getUserDataService(recomendacion.autor_id)
     datos.then(data => {
       const { datosUsuario } = data;
-      console.log(data)
+  
       const usuario = datosUsuario[0][0];
       if (usuario) {
       setUsuario({
@@ -47,6 +50,20 @@ const RecomendacionPage = () => {
       })
     }
   })
+ const dato = GetFotoRecomendacion(id)
+ dato.then(data => {
+  const { fotosRecomendacion } = data;
+  const fotos = fotosRecomendacion[0][0];
+  console.log(fotos)
+   if (fotos){
+     setFotos({
+    key:fotos.id,
+    created_at:fotos.created_at,
+    foto:fotos.foto,
+
+    })
+   }
+ })
 },[recomendacion.autor_id]);
 
   if (loading) {
@@ -78,19 +95,18 @@ const handleClick = async (e) => {
  }
 }
 const { nombre} = usuario;
-
+const {foto} = fotos; 
     if (status === "loading") {
       return <Spinner />;
     }
-console.log(recomendacion)
   return (
     <main className={theme}>
     <section className="UnicaRecomendacion">
       {recomendacion && (
         <section>
           <h2>{recomendacion.titulo}</h2>
-          { recomendacion.foto  ? (
-                  <img src={recomendacion.foto} alt={recomendacion.titulo} />
+          { foto  ? (
+                  <img src={foto} alt={recomendacion.titulo} />
                   ) : (
                     null
                   )}

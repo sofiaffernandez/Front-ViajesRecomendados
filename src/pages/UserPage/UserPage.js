@@ -51,7 +51,7 @@ const PaginaUsuario = () => {
           <h3>Nombre: {nombre}</h3>
            <h3>Email: {email} </h3>
            <p>Creado en {created_at}</p>
-           {avatar != null ? (
+           {avatar  ? (
              <img src={avatar} alt="Avatar"></img>
         ) : (
           <p>Parece que de momento no tiene avatar.</p>

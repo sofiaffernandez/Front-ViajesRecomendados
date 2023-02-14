@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useThemeContext } from "../../context/ThemeContext";
 import Spinner from "../../components/Spinner/Spinner";
 import { toast } from "react-toastify";
 import "./EditUserPage.css"
 const {REACT_APP_BACKEND } = process.env;
 
 function EditUser() {
+  const { theme } = useThemeContext();
   const id = JSON.parse(localStorage.getItem('user')).id;
   const token = JSON.parse(localStorage.getItem('user')).token;
   const [nombre, setNombre] = useState();
@@ -21,9 +23,9 @@ function EditUser() {
     setAvatarPreview(avatar);
   }, [nombre, email, avatar]);
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
-try{
+  try{
   setStatus("loading");
   const formData = new FormData();
   formData.append("nombre", nombre);
@@ -42,8 +44,8 @@ try{
     toast.error(data.message);
     }
     else{
-      toast.success("Se ha actualizado correctamente");
       navigate("/");
+      toast.success("Se ha actualizado correctamente");
     }
 
   } catch (error) {
@@ -63,7 +65,7 @@ try{
   };
 
   return (
-    <main className="useedit">
+    <main className={theme}>
     <form className="useredit" onSubmit={handleSubmit}>
       <h2>Edita tu información </h2>
       <label>
