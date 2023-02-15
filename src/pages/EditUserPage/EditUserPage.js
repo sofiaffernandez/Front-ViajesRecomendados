@@ -4,11 +4,13 @@ import { useThemeContext } from "../../context/ThemeContext";
 import Spinner from "../../components/Spinner/Spinner";
 import { toast } from "react-toastify";
 import "./EditUserPage.css"
+import { useParams } from "react-router-dom";
+import { useSetUser } from "../../context/UserContext";
+import { RiDeleteBin6Line } from 'react-icons/ri';
 const {REACT_APP_BACKEND } = process.env;
-
 function EditUser() {
   const { theme } = useThemeContext();
-  const id = JSON.parse(localStorage.getItem('user')).id;
+  const { id } = useParams();
   const token = JSON.parse(localStorage.getItem('user')).token;
   const [nombre, setNombre] = useState();
   const [email, setEmail] = useState();
@@ -17,6 +19,7 @@ function EditUser() {
   //Establecimiento del status y su set 
   const [status, setStatus] = useState("");
   const navigate = useNavigate();
+  const setUser = useSetUser();
   useEffect(() => {
     setNombre(nombre);
     setEmail(email);
@@ -25,8 +28,8 @@ function EditUser() {
 
 const handleSubmit = async (e) => {
     e.preventDefault();
+    setStatus("loading");
   try{
-  setStatus("loading");
   const formData = new FormData();
   formData.append("nombre", nombre);
   formData.append("email", email); 
@@ -44,7 +47,8 @@ const handleSubmit = async (e) => {
     toast.error(data.message);
     }
     else{
-      navigate("/");
+      setStatus("");
+      navigate(`/usuario/${id}/detalle`);
       toast.success("Se ha actualizado correctamente");
     }
 
@@ -63,6 +67,32 @@ const handleSubmit = async (e) => {
     setAvatar(file);
     setAvatarPreview(URL.createObjectURL(file));
   };
+  const handleClick = async (e) => {
+    e.preventDefault()
+    setStatus("loading");
+    try{
+      const res = await fetch(`${process.env.REACT_APP_BACKEND}/usuario/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: token,
+        },
+      });
+    
+      const data = await res.json();
+    
+      if (!res.ok) {
+        throw new Error(data.message);
+      }else{
+        toast.success("Se ha eliminado correctamente");
+        navigate("/");
+        setUser();
+      }
+      }catch (error) {
+        toast.error(error.message);
+      } finally{
+        setStatus("");
+   }
+  }
 
   return (
     <main className={theme}>
@@ -98,6 +128,9 @@ const handleSubmit = async (e) => {
       </label>
       <button>Guardar cambios</button>
     </form>
+    <section>
+      < RiDeleteBin6Line onClick={handleClick}/>              
+    </section>
 
     </main>
   );

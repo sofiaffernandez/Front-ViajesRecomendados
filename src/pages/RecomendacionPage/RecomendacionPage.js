@@ -127,6 +127,7 @@ const handleClick = async (e) => {
       setStatus("");
  }
 }
+
 const { nombre} = usuario;
 const {foto} = fotos; 
 
@@ -194,6 +195,13 @@ const {foto} = fotos;
                 <Link to={`/usuario/${comentario.usuario_id}/detalle`}>
                   <p>Comentario hecho por {usuario.nombre}</p>
                 </Link>
+                {comentario.usuario_id === idLogin ? (
+                   <section>
+                      < RiDeleteBin6Line />       
+                    </section>
+                         ) : (
+                           null
+                          )}
               </li>
             );
           })}

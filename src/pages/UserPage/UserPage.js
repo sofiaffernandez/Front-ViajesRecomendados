@@ -52,12 +52,12 @@ const PaginaUsuario = () => {
            <h3>Email: {email} </h3>
            <p>Creado en {new Date(created_at).toLocaleDateString('es-ES')}</p>
            {avatar  ? (
-             <img src={avatar} alt="Avatar"></img>
+             <img src={`${process.env.REACT_APP_BACKEND}/public/${avatar}`} alt="Avatar"></img>
         ) : (
           <p>Parece que de momento no tiene avatar.</p>
           )}
         {id == idLogin ? (
-             <Link to={`/usuario/${usuarioId}`}>
+             <Link to={`/usuario/${id}`}>
                <TbEdit />
              </Link>
               ) : (
