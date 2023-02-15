@@ -1,50 +1,103 @@
-import { userContext } from "../../contexts/userContext";
-import { Navigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-
-
+import { useThemeContext } from "../../context/ThemeContext";
+import { useState, useEffect } from 'react';
+import { useParams } from "react-router-dom";
+import getUserDataService from "../../services/GetUserData";
+import { Link } from "react-router-dom";
+import {TbEdit} from  "react-icons/tb"
+import "./UserPage.css"
 const PaginaUsuario = () => {
-  const { token } = userContext();
-  const [nombre, setNombre] = useState();
-  const [email, setEmail] = useState();
-  const [avatarPreview, setAvatarPreview] = useState();
-
-  const [error, setError] = useState("");
+  const { id } = useParams();
+  const [usuario, setUsuario] = useState([]);
+  const [comentariosUsuario, setComentariosUsuario] = useState([])
+  const { theme } = useThemeContext();
+  let idLogin;
+  if (localStorage.getItem('user')) {
+    idLogin = JSON.parse(localStorage.getItem('user')).id;
+  } 
+  
+  const [recomendaciones, setRecomendaciones] = useState([]);
 
   useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/usuario`, {
-          headers: { Authorization: `${token}` },
-        });
-        const body = await res.json();
+    const datos = getUserDataService(id)
+    datos.then(data => {
+      const { datosUsuario } = data;
+      console.log(data)
+      const usuario = datosUsuario[0][0];
+      if (usuario) {
+      setUsuario({
+        key: usuario.id,
+        nombre: usuario.nombre,
+        avatar: usuario.avatar,
+        email: usuario.email,
+        created_at: usuario.created_at
+      });
+    }
+    const {datosRecomendacionesUsuario} = data
+    const recomendaciones = datosRecomendacionesUsuario[0]
+      setRecomendaciones(recomendaciones)
+    const {datosComentariosUsuarios} = data
+    const comentariosUsuario = datosComentariosUsuarios[0]
+    setComentariosUsuario(comentariosUsuario)   
+})},[id]);
 
-        if (res.ok) {
-            setNombre(user.data.nombre);
-            setEmail(user.dataemail);
-            setAvatarPreview(user.data.avatar);
-        } else {
-          throw new Error(body.message);
-        }
-      } catch (error) {
-        setError(error.message);
-      }
-    };
 
-    fetchProfile();
-  }, []);
-
-  if (!token) {
-    return <Navigate to="/login" />;
-  }
-    // se puede añadir las entradas que tenga también
-    return (
-        <section>
-          <h2>Mi perfil</h2>
+  const { usuarioId, nombre, avatar, email, created_at } = usuario;
+ const {titulo } = recomendaciones
+  console.log(recomendaciones)
+   return (
+     <main className={theme}>
+       <section className='Perfil'>
+      <h2>Perfil de {nombre}</h2>
           <h3>Nombre: {nombre}</h3>
-          <h3>Mi email: {email} </h3>
-          <img src={avatarPreview} alt="Avatar de ${nombre}"></img>
+           <h3>Email: {email} </h3>
+           <p>Creado en {new Date(created_at).toLocaleDateString('es-ES')}</p>
+           {avatar  ? (
+             <img src={`${process.env.REACT_APP_BACKEND}/public/${avatar}`} alt="Avatar"></img>
+        ) : (
+          <p>Parece que de momento no tiene avatar.</p>
+          )}
+        {id == idLogin ? (
+             <Link to={`/usuario/${id}`}>
+               <TbEdit />
+             </Link>
+              ) : (
+              null
+              )}
         </section>
-      );
+    <section className='RecomendacionesPerfil'>
+          <h2> Recomendaciones de {nombre} </h2>
+          {recomendaciones.length > 0 ?  ( 
+            recomendaciones.map((recomendacion) =>
+          <li key={recomendacion.id} > 
+          <Link to={`/recomendacion/${recomendacion.id}/detalle`}>
+             <h3>{recomendacion.titulo}</h3>
+          </Link>
+              <h4>{recomendacion.lugar}</h4>
+              <h4>{recomendacion.categoria}</h4>
+              <p>{recomendacion.entradilla}</p>
+          </li> 
+            )
+        ) : (
+          <p>Parece que de momento no hay recomendaciones para mostrar.</p>
+          )}
+        </section>
+        <section className='ComentariosPerfil'>
+          <h2> Comentarios de {nombre} </h2>
+          {comentariosUsuario.length > 0 ? (
+        comentariosUsuario.map((comentario) => (
+                  <li key={comentario.id} >
+                    <p>{titulo}</p>
+                     <p>{comentario.comentario} </p>
+                      <Link to={`/recomendacion/${comentario.recomendacion_id}/detalle`}>
+                      <p>{comentario.created_at}</p>  
+                     </Link>  
+                  </li>
+        ))
+        ) : (
+          <p>Parece que de momento no hay comentarios para mostrar.</p>
+          )}
+        </section>
+    </main>
+       );
     };
-export default PaginaUsuario;
+ export default PaginaUsuario;

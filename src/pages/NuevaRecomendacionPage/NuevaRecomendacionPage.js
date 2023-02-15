@@ -1,10 +1,14 @@
+import Spinner from "../../components/Spinner/Spinner";
+import { useThemeContext } from "../../context/ThemeContext";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import useFetch from "../hooks/useFetch";
+import { toast } from "react-toastify";
+import "./NuevaRecomendacionPage.css"
+const {REACT_APP_BACKEND } = process.env;
 
-const { REACT_APP_API } = process.env;
 
 const NuevaRecomendacion = () => {
-    const recomendacion = useFetch({REACT_APP_API} + id);
+  const { theme } = useThemeContext();
   const [titulo, setTitulo] = useState("");
   const [categoria, setCategoria] = useState("");
   const [lugar, setLugar] = useState("");
@@ -12,20 +16,33 @@ const NuevaRecomendacion = () => {
   const [texto, setTexto] = useState("");
   const [foto, setFoto] = useState("");
   const [fotoPreview, setFotoPreview] = useState("");
+ const token = JSON.parse(localStorage.getItem('user')).token;
+  //Establecimiento del status y su set 
+  const [status, setStatus] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setTitulo(recomendacion?.titulo);
-    setCategoria(recomendacion?.categoria);
-    setLugar(recomendacion?.lugar);
-    setEntradilla(recomendacion?.entradilla);
-    setTexto(recomendacion?.texto);
-    setFoto(recomendacion?.foto);
+      setTitulo(titulo);
+      setCategoria(categoria);
+      setLugar(lugar);
+      setEntradilla(entradilla)
+      setTexto(texto);
+      setFoto(foto)
     
-  }, [recomendacion]);
+  }, [ 
+    titulo, 
+    categoria,
+    lugar,
+    entradilla,
+    texto,
+    foto
+  ]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  try {
 
+    setStatus("loading");
     const formData = new FormData();
     formData.append("titulo", titulo);
     formData.append("categoria", categoria); 
@@ -34,14 +51,32 @@ const NuevaRecomendacion = () => {
     formData.append("texto", texto); 
     formData.append("foto", foto); 
 
-    const res = await fetch("" + id, {
-      method: "PUT",
+    const res = await fetch(  `${REACT_APP_BACKEND}/recomendacion/crear`, {
+      method: "POST",
+      headers: {
+        Authorization: token,},
       body: formData,
     });
     const data = await res.json();
-    console.log(data);
-  };
 
+    if(!res.ok || data.status ==="error"){
+    toast.error(data.message);
+    }
+    else{
+      navigate("/")
+      toast.success("Se ha publicado correctamente");
+    }
+
+  } catch (error) {
+    toast.error(error.message);
+  } finally{
+    setStatus("");
+  }
+  }
+  if (status === "loading") {
+    return <Spinner />;
+  }
+  
   const handleFile = (e) => {
     const file = e.target.files[0];
     setFoto(file);
@@ -49,9 +84,11 @@ const NuevaRecomendacion = () => {
   };
 
   return (
-    <form className="useracter edit" onSubmit={handleSubmit}>
+    <main className={theme}>
+    <form className="nuevaRecomendacion" onSubmit={handleSubmit}>
+    <h2>Nueva Recomendación</h2>
       <label>
-        <span>Titulo:</span>
+        <span>Titulo </span>
         <input
           name="titulo"
           value={titulo}
@@ -59,7 +96,7 @@ const NuevaRecomendacion = () => {
         />
       </label>
       <label>
-        <span>Categoria:</span>
+        <span>Categoria </span>
         <input
           name="categoria"
           type="text"
@@ -68,7 +105,7 @@ const NuevaRecomendacion = () => {
         />
       </label>
       <label>
-        <span>Lugar:</span>
+        <span>Lugar </span>
         <input
           name="lugar"
           type="text"
@@ -77,7 +114,7 @@ const NuevaRecomendacion = () => {
         />
       </label>
       <label>
-        <span>Entradilla</span>
+        <span>Entradilla </span>
         <input
           name="entradilla"
           type="text"
@@ -86,7 +123,7 @@ const NuevaRecomendacion = () => {
         />
       </label>
       <label>
-        <span>Texto</span>
+        <span>Texto </span>
         <textarea
           name="texto"
           type="text"
@@ -95,17 +132,18 @@ const NuevaRecomendacion = () => {
         />
       </label>
       <label>
-        <span>Foto:</span>
+        <span>Foto </span>
         <input
           className="image-picker"
           name="foto"
           type="file"
           onChange={handleFile}
         />
-        {fotoPreview && <img src={fotoPreview} alt="preview" />}
+        {fotoPreview && <img src={fotoPreview} alt="preview"  className="preview-image"/>}
       </label>
       <button>Publicar recomendación</button>
     </form>
+    </main>
   );
 }
 

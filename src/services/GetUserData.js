@@ -1,12 +1,13 @@
-export const getUserDataService = async (id) => {
-    const response = await fetch(`${process.env.REACT_APP_BACKEND}/usuario/${id}`);
+ const getUserDataService = async (id) => {
+
+    const res = await fetch(`${process.env.REACT_APP_BACKEND}/usuario/${id}/detalle`);
   
-    const json = await response.json();
+    const json = await res.json();
   
-    if (!response.ok) {
+    if (!res.ok) {
       throw new Error(json.message);
     }
   
-    return json.data;
+    return json.data.detalle;
   };
-  
+export default getUserDataService

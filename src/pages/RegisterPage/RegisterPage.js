@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import Spinner from "../../components/Spinner/Spinner";
-
-
+import "./RegisterPage.css"
+import { useThemeContext } from "../../context/ThemeContext";
 const Registro = ({ setUser }) => {
   const { REACT_APP_BACKEND} = process.env;
     //Establecer email 
@@ -13,7 +13,7 @@ const Registro = ({ setUser }) => {
   const [nombre, setNombre] = useState("");
   //Establecer status
   const [status, setStatus] = useState("");
-
+  const { theme } = useThemeContext();
 
   const handleSubmit = async (e) => {
     try {
@@ -45,7 +45,7 @@ const Registro = ({ setUser }) => {
   }
 
   return (
-    <main className="loginregistro">
+    <main className={theme}>
       <form className="loginregistro" onSubmit={handleSubmit}>
         <h2> Encantados de conocerte</h2>
         <ul>
