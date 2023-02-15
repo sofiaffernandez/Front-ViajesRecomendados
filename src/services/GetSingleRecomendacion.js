@@ -1,11 +1,10 @@
 export const getSigleRecomendacion = async (id) => {
-    const response = await fetch(`${process.env.REACT_APP_BACKEND}/recomendacion/${id}`);
-  
-    const json = await response.json();
-  
-    if (!response.ok) {
+    const res = await fetch(`${process.env.REACT_APP_BACKEND}/recomendacion/${id}/detalle`);
+
+    const json = await res.json();
+    if (!res.ok || json.status === "error") {
       throw new Error(json.message);
     }
-  
-    return json.data;
+
+    return json.data.detalle.datosRecomendacion[0];
   };

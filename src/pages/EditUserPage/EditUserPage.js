@@ -1,56 +1,112 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useThemeContext } from "../../context/ThemeContext";
+import Spinner from "../../components/Spinner/Spinner";
+import { toast } from "react-toastify";
+import "./EditUserPage.css"
 import { useParams } from "react-router-dom";
-import useFetch from "../hooks/useFetch";
-
+import { useSetUser } from "../../context/UserContext";
+import { RiDeleteBin6Line } from 'react-icons/ri';
+const {REACT_APP_BACKEND } = process.env;
 function EditUser() {
+  const { theme } = useThemeContext();
   const { id } = useParams();
-  const user = useFetch("https://localhost:4000/usuario" + id);
-
+  const token = JSON.parse(localStorage.getItem('user')).token;
   const [nombre, setNombre] = useState();
   const [email, setEmail] = useState();
-  const [nuevoEmail, setNuevoEmail] = useState();
   const [avatar, setAvatar] = useState();
   const [avatarPreview, setAvatarPreview] = useState();
 
+  //Establecimiento del status y su set 
+  const [status, setStatus] = useState("");
+  const navigate = useNavigate();
+  const setUser = useSetUser();
   useEffect(() => {
-    setNombre(user?.nombre);
-    setEmail(user?.email);
-    setNuevoEmail(user?.nuevoEmail);
-    setAvatarPreview(user?.avatar);
-  }, [user]);
+    setNombre(nombre);
+    setEmail(email);
+    setAvatarPreview(avatar);
 
-  const handleSubmit = async (e) => {
+  }, [nombre, email, avatar ]);
+
+const handleSubmit = async (e) => {
     e.preventDefault();
+    setStatus("loading");
+  try{
+  const formData = new FormData();
+  formData.append("nombre", nombre);
+  formData.append("email", email); 
+  formData.append("avatar", avatar); 
 
-    const formData = new FormData();
-    formData.append("nombre", nombre);
-    formData.append("email", email); 
-    formData.append("nuevoEmail", nuevoEmail); 
-    formData.append("avatar", avatar); 
+  
+  const res = await fetch(`${REACT_APP_BACKEND}/usuario/${id}`, {
+    method: "PUT",
+    headers: {
+      Authorization: token},
+    body: formData,
+  });
+  const data = await res.json();
 
+  if(!res.ok || data.status ==="error"){
+    toast.error(data.message);
+    }
+    else{
+      setStatus("");
+      navigate(`/usuario/${id}/detalle`);
+      toast.success("Se ha actualizado correctamente");
+    }
 
-    const res = await fetch("" + id, {
-      method: "PUT",
-      body: formData,
-    });
-    const data = await res.json();
-    console.log(data);
-  };
+  } catch (error) {
+    toast.error(error.message);
+  } finally{
+    setStatus("");
+  }
+  }
 
+  if (status === "loading") {
+    return <Spinner />;
+  }
   const handleFile = (e) => {
     const file = e.target.files[0];
     setAvatar(file);
     setAvatarPreview(URL.createObjectURL(file));
   };
+  const handleClick = async (e) => {
+    e.preventDefault()
+    setStatus("loading");
+    try{
+      const res = await fetch(`${process.env.REACT_APP_BACKEND}/usuario/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: token,
+        },
+      });
+    
+      const data = await res.json();
+    
+      if (!res.ok) {
+        throw new Error(data.message);
+      }else{
+        toast.success("Se ha eliminado correctamente");
+        navigate("/");
+        setUser();
+      }
+      }catch (error) {
+        toast.error(error.message);
+      } finally{
+        setStatus("");
+   }
+  }
 
   return (
-    <form className="useracter edit" onSubmit={handleSubmit}>
+    <main className={theme}>
+    <form className="useredit" onSubmit={handleSubmit}>
+      <h2>Edita tu información </h2>
       <label>
         <span>Nombre:</span>
         <input
           name="nombre"
           value={nombre}
-          onChange={(e) => setName(e.target.value)}
+          onChange={(e) => setNombre(e.target.value)}
         />
       </label>
       <label>
@@ -60,15 +116,6 @@ function EditUser() {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-        />
-      </label>
-      <label>
-        <span>Nuevo email:</span>
-        <input
-          name="nuevoEmail"
-          type="email"
-          value={nuevoEmail}
-          onChange={(e) => setNuevoEmail(e.target.value)}
         />
       </label>
       <label>
@@ -83,6 +130,11 @@ function EditUser() {
       </label>
       <button>Guardar cambios</button>
     </form>
+    <section>
+      < RiDeleteBin6Line onClick={handleClick}/>              
+    </section>
+
+    </main>
   );
 }
 
