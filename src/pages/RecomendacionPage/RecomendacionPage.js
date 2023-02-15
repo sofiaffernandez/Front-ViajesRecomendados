@@ -14,6 +14,7 @@ import { useThemeContext } from "../../context/ThemeContext";
 import { GetFotoRecomendacion } from "../../services/GetFotoRecomendacion";
 import GetAllComentarios from "../../services/GetAllComentariosRecomendacion";
 import { GetAllUsers } from "../../services/GetAllUsers";
+import getVotosMedia from "../../services/GetVotosMedia";
 
 
 const RecomendacionPage = () => {
@@ -44,7 +45,7 @@ const RecomendacionPage = () => {
   const navigate = useNavigate();
   const [fotos, setFotos] = useState([]);
   const [comentarios, setComentarios] = useState([]);
-  const [avgVotos, setMediaVotos] = useState([]);
+  const [votos, setVotos] = useState([]);
 
 
 
@@ -80,22 +81,22 @@ const RecomendacionPage = () => {
     const comentarios = datosComentarios[0]
     setComentarios(comentarios)   
    })
-   const votoDato = GetAllComentarios(id)
-   votoDato.then(data => {
-    const {mediaVotos} = data;
-    const avgVotos = mediaVotos[0][0]
-    setMediaVotos(avgVotos.AVG)  
-   
-   })
    
     const dataC =  GetAllComentarios(id);
     dataC.then(data =>{
       const { datosComentarios } = data;
       const comentarios = datosComentarios[0];
       setComentarios(comentarios);
-    }
-      )
+    })
+    const dataV = getVotosMedia(id);
+    dataV.then(data => {
+      const { votos_medios } = data[0];
+      if (votos_medios) {
+        const votosEnteros = parseInt(votos_medios, 10);
+        setVotos(votosEnteros);
+      }
  })
+})
 },[recomendacion.autor_id]);
 
 
@@ -155,6 +156,7 @@ const {foto} = fotos;
           <p>Creada por <Link to={`/usuario/${recomendacion.autor_id}/detalle`}>{nombre}</Link> {" "} 
          at {new Date(recomendacion.created_at).toLocaleDateString('es-ES')}
         </p>
+        <p>La media de votos es: {votos}</p>
         </section>
       )}
                   { recomendacion.autor_id === idLogin ? (
@@ -168,8 +170,7 @@ const {foto} = fotos;
        { token ? (
                 <section>
                   <Votar /> 
-                 <p>{avgVotos}</p>
-    
+  
                 </section>
                   ) : (
                     <p> Registrate para poder votar </p>
@@ -196,12 +197,34 @@ const {foto} = fotos;
                   <p>Comentario hecho por {usuario.nombre}</p>
                 </Link>
                 {comentario.usuario_id === idLogin ? (
-                   <section>
-                      < RiDeleteBin6Line />       
+                    <section>
+                      <RiDeleteBin6Line onClick={async (e) => {
+                        e.preventDefault();
+                        setStatus("loading");
+                        try {
+                          const res = await fetch(`${process.env.REACT_APP_BACKEND}/comentario/${comentario.id}`, {
+                            method: "DELETE",
+                            headers: {
+                              Authorization: token,
+                            },
+                          });
+                        
+                          const data = await res.json();
+                        
+                          if (!res.ok) {
+                            throw new Error(data.message);
+                          } else {
+                            toast.success("Se ha eliminado correctamente");
+                            window.location.reload()
+                          }
+                        } catch (error) {
+                          toast.error(error.message);
+                        } finally {
+                          setStatus("");
+                        }
+                      }} />                 
                     </section>
-                         ) : (
-                           null
-                          )}
+                  ) : null}
               </li>
             );
           })}

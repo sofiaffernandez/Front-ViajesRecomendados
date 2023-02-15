@@ -23,6 +23,7 @@ import Footer from "./components/Footer/Footer";
 import {ThemeProvider} from "./context/ThemeContext";
 import EditUser from "./pages/EditUserPage/EditUserPage";
 import ListRecomendaciones from "./pages/RecomendacionPage/ListRecomendacion";
+import ListUsuarios from "./pages/UserPage/ListUsuarios";
 
 
 function App() {
@@ -34,11 +35,13 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/recomendaciones" element={<ListRecomendaciones/>} />
+        <Route path="/usuarios" element={<ListUsuarios />} />
         <Route path="/about" element={<About/>} />
         <Route path="/usuario/login" element={<Login />} />
         <Route path="/usuario/crear" element={<Registro />} />
         <Route path="*" element={<NotFoundPage />} />
         <Route path= "/usuario/:id/detalle" element= {<UserPage />} />
+
         <Route path="/recomendacion/:id/detalle" element={<RecomendacionPage />}/>
         <Route path="/recomendacion/formulario" element={<NuevaRecomendacionPage />}/>
         <Route path="/usuario/:id" element={<EditUser />}/>

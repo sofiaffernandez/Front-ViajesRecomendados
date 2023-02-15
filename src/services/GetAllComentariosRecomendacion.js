@@ -6,7 +6,7 @@
     if (!res.ok || json.status === "error") {
       throw new Error(json.message);
     }
-    console.log(json.data.detalle)
+
     return json.data.detalle
   };
   export default GetAllComentarios

@@ -16,6 +16,7 @@ function EditUser() {
   const [email, setEmail] = useState();
   const [avatar, setAvatar] = useState();
   const [avatarPreview, setAvatarPreview] = useState();
+
   //Establecimiento del status y su set 
   const [status, setStatus] = useState("");
   const navigate = useNavigate();
@@ -24,7 +25,8 @@ function EditUser() {
     setNombre(nombre);
     setEmail(email);
     setAvatarPreview(avatar);
-  }, [nombre, email, avatar]);
+
+  }, [nombre, email, avatar ]);
 
 const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,6 +36,7 @@ const handleSubmit = async (e) => {
   formData.append("nombre", nombre);
   formData.append("email", email); 
   formData.append("avatar", avatar); 
+
   
   const res = await fetch(`${REACT_APP_BACKEND}/usuario/${id}`, {
     method: "PUT",
@@ -115,7 +118,6 @@ const handleSubmit = async (e) => {
           onChange={(e) => setEmail(e.target.value)}
         />
       </label>
-
       <label>
         <span>Imagen:</span>
         <input

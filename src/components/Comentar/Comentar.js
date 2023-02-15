@@ -35,6 +35,7 @@ try{
   else{
     toast.success("Se ha publicado el comentario correctamente");
     setComentarios([...comentarios, data.data]);
+    window.location.reload()
   }
 
 } catch (error) {
