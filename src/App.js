@@ -24,6 +24,7 @@ import {ThemeProvider} from "./context/ThemeContext";
 import EditUser from "./pages/EditUserPage/EditUserPage";
 import ListRecomendaciones from "./pages/RecomendacionPage/ListRecomendacion";
 import ListUsuarios from "./pages/UserPage/ListUsuarios";
+import EditarRecomendacion from "./pages/RecomendacionPage/EditarRecomendacion.";
 
 
 function App() {
@@ -41,7 +42,7 @@ function App() {
         <Route path="/usuario/crear" element={<Registro />} />
         <Route path="*" element={<NotFoundPage />} />
         <Route path= "/usuario/:id/detalle" element= {<UserPage />} />
-
+        <Route path="/recomendacion/:id/editar" element={<EditarRecomendacion />}/>
         <Route path="/recomendacion/:id/detalle" element={<RecomendacionPage />}/>
         <Route path="/recomendacion/formulario" element={<NuevaRecomendacionPage />}/>
         <Route path="/usuario/:id" element={<EditUser />}/>

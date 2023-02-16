@@ -1,9 +1,12 @@
 import Spinner from "../../components/Spinner/Spinner";
 import { useThemeContext } from "../../context/ThemeContext";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { toast } from "react-toastify";
 import "./NuevaRecomendacionPage.css"
+import ReactQuill from 'react-quill';
+import "react-quill/dist/quill.snow.css";
+import Quill from 'quill';
 const {REACT_APP_BACKEND } = process.env;
 
 
@@ -20,6 +23,48 @@ const NuevaRecomendacion = () => {
   //Establecimiento del status y su set 
   const [status, setStatus] = useState("");
   const navigate = useNavigate();
+ 
+  const [content, setContent] = useState('');
+
+  const modules = {
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike'],      // toggled buttons
+      ['blockquote', 'code-block'],
+
+      [{ 'header': 1 }, { 'header': 2 }],              // custom button values
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+      [{ 'script': 'sub'}, { 'script': 'super' }],     // superscript/subscript
+      [{ 'indent': '-1'}, { 'indent': '+1' }],         // outdent/indent
+      [{ 'direction': 'rtl' }],                        // text direction
+
+      [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+      [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+      [{ 'font': [] }],
+      [{ 'align': [] }],
+
+      ['clean']                                         // remove formatting button
+    ]
+  };
+
+  const formats = [
+    'header', 'font', 'size',
+    'bold', 'italic', 'underline', 'strike', 'blockquote',
+    'list', 'bullet', 'indent',
+    'link', 'image', 'video',
+    'color', 'background', 'align'
+  ];
+
+  function handleChange(value) {
+    setContent(value);
+  }
+
+  
+    <div>
+      <ReactQuill value={content} onChange={handleChange} modules={modules} formats={formats} />
+    </div>
+
 
   useEffect(() => {
       setTitulo(titulo);
@@ -37,6 +82,21 @@ const NuevaRecomendacion = () => {
     texto,
     foto
   ]);
+  const editorRef = useRef(null);
+
+  useEffect(() => {
+    if (editorRef.current) {
+      // Creamos una nueva instancia de Quill con la referencia del elemento DOM
+      const editor = new Quill(editorRef.current, {
+        modules: { toolbar: true },
+        theme: "snow"
+      });
+      // Agregamos un listener para actualizar el estado del componente cuando el contenido del editor cambia
+      editor.on("text-change", () => {
+        setTexto(editor.root.innerHTML);
+      });
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -82,7 +142,6 @@ const NuevaRecomendacion = () => {
     setFoto(file);
     setFotoPreview(URL.createObjectURL(file));
   };
-
   return (
     <main className={theme}>
     <form className="nuevaRecomendacion" onSubmit={handleSubmit}>
@@ -122,15 +181,16 @@ const NuevaRecomendacion = () => {
           onChange={(e) => setEntradilla(e.target.value)}
         />
       </label>
-      <label>
+    <label>
         <span>Texto </span>
+        <ReactQuill value={content} onChange={handleChange} modules={modules} formats={formats} />
         <textarea
           name="texto"
           type="text"
           value={texto}
           onChange={(e) => setTexto(e.target.value)}
         />
-      </label>
+      </label> 
       <label>
         <span>Foto </span>
         <input
@@ -144,6 +204,7 @@ const NuevaRecomendacion = () => {
       <button>Publicar recomendación</button>
     </form>
     </main>
+    
   );
 }
 
