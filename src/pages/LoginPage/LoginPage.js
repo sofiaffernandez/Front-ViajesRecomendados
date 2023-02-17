@@ -6,6 +6,7 @@ import Spinner from "../../components/Spinner/Spinner";
 import { toast } from "react-toastify";
 import { useThemeContext } from "../../context/ThemeContext";
 import { useSetUser } from "../../context/UserContext";
+import {MdOutlineVisibility} from "react-icons/md"
 import "./LoginPage.css"
 
 const Login = () => {
@@ -17,6 +18,7 @@ const Login = () => {
     const [contraseña, setContraseña] = useState("");
     //Establecimiento del status y su set 
     const [status, setStatus] = useState("");
+    const [shown, setShown] = useState(false);
 const { theme } = useThemeContext();
 
   const handleSubmit = async (e) => {
@@ -54,7 +56,7 @@ const { theme } = useThemeContext();
   if (status === "loading") {
     return <Spinner />;
   }
-  
+  const switchShown = () => setShown(!shown);
   return (
     <main className={theme}>
       <form className="login" onSubmit={handleSubmit}>
@@ -81,11 +83,12 @@ const { theme } = useThemeContext();
             onChange={(e) => {
               setContraseña(e.target.value);
             }}
-            type="password"
+            type={shown ? 'text' : 'password'}
             name="contraseña"
           />
         </label>
       </li>
+      < MdOutlineVisibility onClick={switchShown} />
     </ul>
         <button>Accede</button>
       </form>

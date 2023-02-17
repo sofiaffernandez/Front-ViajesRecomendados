@@ -2,6 +2,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import Spinner from "../../components/Spinner/Spinner";
 import "./RegisterPage.css"
+import {MdOutlineVisibility} from "react-icons/md"
 import { useThemeContext } from "../../context/ThemeContext";
 const Registro = ({ setUser }) => {
   const { REACT_APP_BACKEND} = process.env;
@@ -13,6 +14,7 @@ const Registro = ({ setUser }) => {
   const [nombre, setNombre] = useState("");
   //Establecer status
   const [status, setStatus] = useState("");
+  const [shown, setShown] = useState(false);
   const { theme } = useThemeContext();
 
   const handleSubmit = async (e) => {
@@ -43,7 +45,7 @@ const Registro = ({ setUser }) => {
   if (status === "loading") {
     return <Spinner />;
   }
-
+  const switchShown = () => setShown(!shown);
   return (
     <main className={theme}>
       <form className="loginregistro" onSubmit={handleSubmit}>
@@ -83,9 +85,10 @@ const Registro = ({ setUser }) => {
             onChange={(e) => {
               setContraseña(e.target.value);
             }}
-            type="password"
+            type={shown ? 'text' : 'password'}
             name="contraseña"
           />
+           < MdOutlineVisibility onClick={switchShown} />
         </label>
           </li>
         </ul>
@@ -94,9 +97,10 @@ const Registro = ({ setUser }) => {
         <label>
           Repite tu contraseña <br/>
           <input
-            type="password"
+            type={shown ? 'text' : 'password'}
             name="contraseña"
           />
+           < MdOutlineVisibility onClick={switchShown} />
         </label>
           </li>
         </ul>

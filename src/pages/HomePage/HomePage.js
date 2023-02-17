@@ -6,6 +6,7 @@ import chicosplaya from "./../../Imagenes/chicosplaya.png"
 import Ultimas from "../RecomendacionPage/List3Ultimas";
 import { useUser } from "../../context/UserContext";
 import Buscador from "../../components/Buscador/Buscador";
+
 function Home() {
   const { theme } = useThemeContext();
   const usuario = useUser();
