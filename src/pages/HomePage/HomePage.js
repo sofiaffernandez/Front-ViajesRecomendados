@@ -5,6 +5,7 @@ import chicamundo from"./../../Imagenes/chicamundo.png"
 import chicosplaya from "./../../Imagenes/chicosplaya.png"
 import Ultimas from "../RecomendacionPage/List3Ultimas";
 import { useUser } from "../../context/UserContext";
+import Buscador from "../../components/Buscador/Buscador";
 function Home() {
   const { theme } = useThemeContext();
   const usuario = useUser();
@@ -17,7 +18,7 @@ function Home() {
       </section>
       <h2>Encuentra experiencias únicas</h2>
     <section className="Buscador">
-      <p>BUSCADOR</p>
+      <Buscador /> 
       </section>
       <h2>Vota y comenta las recomendaciones.</h2>
     <section className="Voto">

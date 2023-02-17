@@ -23,8 +23,7 @@ const NuevaRecomendacion = () => {
   //Establecimiento del status y su set 
   const [status, setStatus] = useState("");
   const navigate = useNavigate();
- 
-  const [content, setContent] = useState('');
+
 
   const modules = {
     toolbar: [
@@ -55,16 +54,6 @@ const NuevaRecomendacion = () => {
     'link', 'image', 'video',
     'color', 'background', 'align'
   ];
-
-  function handleChange(value) {
-    setContent(value);
-  }
-
-  
-    <div>
-      <ReactQuill value={content} onChange={handleChange} modules={modules} formats={formats} />
-    </div>
-
 
   useEffect(() => {
       setTitulo(titulo);
@@ -183,13 +172,8 @@ const NuevaRecomendacion = () => {
       </label>
     <label>
         <span>Texto </span>
-        <ReactQuill value={content} onChange={handleChange} modules={modules} formats={formats} />
-        <textarea
-          name="texto"
-          type="text"
-          value={texto}
-          onChange={(e) => setTexto(e.target.value)}
-        />
+        <ReactQuill name="texto"
+          type="text" value={texto}  onChange={(e) => setTexto(e)} modules={modules} formats={formats} />
       </label> 
       <label>
         <span>Foto </span>

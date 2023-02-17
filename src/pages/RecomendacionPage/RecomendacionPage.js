@@ -15,7 +15,7 @@ import { GetFotoRecomendacion } from "../../services/GetFotoRecomendacion";
 import GetAllComentarios from "../../services/GetAllComentariosRecomendacion";
 import { GetAllUsers } from "../../services/GetAllUsers";
 import getVotosMedia from "../../services/GetVotosMedia";
-
+import {MdOutlineCreate} from "react-icons/md"
 
 const RecomendacionPage = () => {
   const { theme } = useThemeContext();
@@ -23,6 +23,7 @@ const RecomendacionPage = () => {
   const { recomendacion, loading } = useRecomendacion(id);
   const [usuarios, setUsuarios] = useState([]);
   const usuariosPromise = GetAllUsers();
+
   useEffect(() => {
     usuariosPromise.then(data => {
       setUsuarios(data);
@@ -132,7 +133,6 @@ const handleClick = async (e) => {
 const { nombre} = usuario;
 const {foto} = fotos; 
 
-
     if (status === "loading") {
       return <Spinner />;
     }
@@ -159,6 +159,16 @@ const {foto} = fotos;
         <p>La media de votos es: {votos}</p>
         </section>
       )}
+        { recomendacion.autor_id === idLogin ? (
+                         <section>
+                           <Link to={`/recomendacion/${id}/editar`}>
+                             <MdOutlineCreate /> 
+                            </Link>
+                     
+                         </section>
+                           ) : (
+                             null
+                           )}
                   { recomendacion.autor_id === idLogin ? (
                          <section>
                             < RiDeleteBin6Line onClick={handleClick}/>
