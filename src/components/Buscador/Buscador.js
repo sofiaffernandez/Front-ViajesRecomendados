@@ -1,81 +1,84 @@
-import { useState } from "react";
-import { BsSearch } from "react-icons/bs";
-import { Link } from "react-router-dom";
-const { REACT_APP_BACKEND } = process.env;
+import React, { useState } from "react";
+import axios from "axios";
+import { TextField, Button } from "@mui/material";
+import "./Buscador.css";
 
-const Buscador = () => {
-  const [categoria, setCategoria] = useState("");
-  const [lugar, setLugar] = useState("");
+function Buscador() {
+const [lugar, setLugar] = useState("");
+const [categoria, setCategoria] = useState("");
+const [results, setResults] = useState([]);
 
-  const [searchResults, setSearchResults] = useState([]);
-  const [order, setOrder] = useState("");
-
-  const buscar = async () => {
-    try {
-     
-      const url = `${REACT_APP_BACKEND}/recomendaciones?categoria=${categoria}&lugar=${lugar}&order=${order}`;
-      const res = await fetch(url, { method: "GET" });
-      const data = await res.json();
-      setSearchResults(data.data);
-      console.log(data)
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const handleChangeCategoria = (event) => {
-    setCategoria(event.target.value);
-  };
-
-  const handleChangeLugar = (event) => {
-    setLugar(event.target.value);
-  };
-
-  const handleOrderChange = (event) => {
-    setOrder(event.target.value);
-  };
-  const clearSearch = () => {
-
-    setSearchResults([]);
-  };
- 
-  return (
-    <>
-    <section className="buscadorResultados">
-      <form className="buscador"> 
-      <input type="text" placeholder="Busca por categoria"
-      onChange={handleChangeCategoria} />
-      <input type="text" placeholder="Busca por lugar" onChange={handleChangeLugar} />
-      <select onChange={handleOrderChange}>
-        <option value="desc">Mejores votados</option>
-        <option value="asc">Peores votados</option>
-      </select>
-     </form>
-      <BsSearch onClick={buscar} />
-      <button onClick={clearSearch}>Limpiar búsqueda</button>
-      <ul className="resultados">
-      {searchResults.length > 0 ? (
-        searchResults.map((result) => {
-          if (result.categoria === categoria || result.lugar === lugar) {
-            return (
-              <li key={result.id}>
-              <Link to={`/recomendacion/${result.id}/detalle`}>
-                       <h3>{result.titulo}</h3>
-                    </Link>
-                       <h4>📍{result.lugar}</h4>
-                        <h4>{result.categoria}</h4>
-            </li>
-            )
-          }
-          
-        })
-        ) : (
-          <p>Parece que de momento no hay recomendaciones que coincidan con tu búsqueda.</p>
-          )}
-      </ul>
-    </section>
-    </>
-  );
+const handleSubmit = (event) => {
+    event.preventDefault();
+    axios
+    .get("/recomendacion/buscar", {
+        params: { lugar: lugar, categoria: categoria },
+    })
+    .then((response) => {
+        setResults(response.data);
+    })
+    .catch((error) => {
+        console.log(error);
+    });
 };
 
+const handleSort = (event) => {
+    event.preventDefault();
+    axios
+    .get("/recomendacion/ordenar", { params: { sort: "votos" } })
+    .then((response) => {
+        setResults(response.data);
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+};
+
+const handleDetail = (event, id) => {
+    event.preventDefault();
+    axios
+    .get("/recomendacion/detalle", { params: { id: id } })
+    .then((response) => {
+        // hacer algo con la respuesta
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+};
+
+return (
+    <div className="buscador-container">
+    <div className="search-fields">
+        <TextField
+        label="Lugar"
+        value={lugar}
+        onChange={(e) => setLugar(e.target.value)}
+        />
+        <TextField
+        label="Categoría"
+        value={categoria}
+        onChange={(e) => setCategoria(e.target.value)}
+        />
+    </div>
+    <Button type="submit" variant="contained" onClick={handleSubmit}>
+        Buscar
+    </Button>
+    <Button onClick={handleSort} variant="contained">
+        Ordenar por votos
+    </Button>
+
+    {results.map((result) => (
+        <div key={result.id}>
+        <h2>{result.titulo}</h2>
+        <p>{result.descripcion}</p>
+        <Button onClick={(event) => handleDetail(event, result.id)}>
+            Ver detalle
+        </Button>
+        </div>
+    ))}
+    </div>
+);
+}
+
 export default Buscador;
+

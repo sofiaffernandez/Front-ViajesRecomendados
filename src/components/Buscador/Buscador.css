@@ -1,0 +1,22 @@
+.buscador-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+}
+
+.search-fields {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+.MuiTextField-root {
+    width: 48%;
+}
+
+button {
+    margin-left: 20px;
+}
