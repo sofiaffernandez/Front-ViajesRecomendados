@@ -1,4 +1,4 @@
-export const getSigleRecomendacion = async (id) => {
+const getSingleRecomendacion = async (id) => {
     const res = await fetch(`${process.env.REACT_APP_BACKEND}/recomendacion/${id}/detalle`);
 
     const json = await res.json();
@@ -8,3 +8,5 @@ export const getSigleRecomendacion = async (id) => {
 
     return json.data.detalle.datosRecomendacion[0];
   };
+
+  export default getSingleRecomendacion
