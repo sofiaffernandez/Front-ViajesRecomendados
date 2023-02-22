@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import {GetAllUsers} from "../../services/GetAllUsers"
 import "../RecomendacionPage/ListRecomendacion.css"
 import { useThemeContext } from "../../context/ThemeContext";
-
+import "./ListUsuarios.css"
 const ListUsuarios = () => {
   const [usuarios, setUsuarios] = useState([]);
   const [page, setPage] = useState(0);
@@ -22,7 +22,7 @@ const ListUsuarios = () => {
   }, [page]);
     return (
       <main className={theme}>
-        <section>
+        <section className="sectionListaPerfiles">
           <ul className="listaPerfiles">
             {usuarios.length > 0 ? (
               usuarios.slice(page * 10, page * 10 + 10).map((usuario) => (
