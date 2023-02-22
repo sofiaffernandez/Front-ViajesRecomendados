@@ -1,10 +1,13 @@
 import { useThemeContext } from "../../context/ThemeContext";
+import React from "react";
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import getUserDataService from "../../services/GetUserData";
+import getSingleRecomendacion  from "../../services/GetSingleRecomendacion"
 import { Link } from "react-router-dom";
 import {TbEdit} from  "react-icons/tb"
 import "./UserPage.css"
+import ComentarioUsuario from "./ComentarioUsuario";
 const PaginaUsuario = () => {
   const { id } = useParams();
   const [usuario, setUsuario] = useState([]);
@@ -32,6 +35,7 @@ const PaginaUsuario = () => {
         created_at: usuario.created_at
       });
     }
+
     const {datosRecomendacionesUsuario} = data
     const recomendaciones = datosRecomendacionesUsuario[0]
       setRecomendaciones(recomendaciones)
@@ -41,31 +45,33 @@ const PaginaUsuario = () => {
 })},[id]);
 
 
-  const { usuarioId, nombre, avatar, email, created_at } = usuario;
- const {titulo } = recomendaciones
-  console.log(recomendaciones)
+  const { nombre, avatar, email, created_at } = usuario;
+
    return (
      <main className={theme}>
        <section className='Perfil'>
-      <h2>Perfil de {nombre}</h2>
-          <h3>Nombre: {nombre}</h3>
-           <h3>Email: {email} </h3>
-           <p>Creado en {new Date(created_at).toLocaleDateString('es-ES')}</p>
+         <h2>Perfil de {nombre}</h2>
            {avatar  ? (
-             <img src={`${process.env.REACT_APP_BACKEND}/public/${avatar}`} alt="Avatar"></img>
+             <img className="avatar" src={`${process.env.REACT_APP_BACKEND}/public/${avatar}`} alt="Avatar"></img>
         ) : (
           <p>Parece que de momento no tiene avatar.</p>
           )}
+          
+          <h3>{nombre}</h3>
+           <h3>{email} </h3>
+           <p>Creado en {new Date(created_at).toLocaleDateString('es-ES')}</p>
         {id == idLogin ? (
              <Link to={`/usuario/${id}`}>
-               <TbEdit />
+               <TbEdit className="editar"/>
              </Link>
               ) : (
               null
               )}
+         
         </section>
     <section className='RecomendacionesPerfil'>
           <h2> Recomendaciones de {nombre} </h2>
+          <div className="divRecomendaciones">
           {recomendaciones.length > 0 ?  ( 
             recomendaciones.map((recomendacion) =>
           <li key={recomendacion.id} > 
@@ -80,23 +86,29 @@ const PaginaUsuario = () => {
         ) : (
           <p>Parece que de momento no hay recomendaciones para mostrar.</p>
           )}
+          </div>
         </section>
         <section className='ComentariosPerfil'>
-          <h2> Comentarios de {nombre} </h2>
-          {comentariosUsuario.length > 0 ? (
-        comentariosUsuario.map((comentario) => (
-                  <li key={comentario.id} >
-                    <p>{titulo}</p>
-                     <p>{comentario.comentario} </p>
-                      <Link to={`/recomendacion/${comentario.recomendacion_id}/detalle`}>
-                      <p>{comentario.created_at}</p>  
-                     </Link>  
-                  </li>
-        ))
-        ) : (
-          <p>Parece que de momento no hay comentarios para mostrar.</p>
-          )}
-        </section>
+  <h2> Comentarios de {nombre} </h2>
+  <div className="divComentarios">
+  {comentariosUsuario.length > 0 ? (
+  <React.Fragment>
+    {comentariosUsuario.map((comentario) => {
+      return (
+        <ComentarioUsuario
+          key={comentario.id}
+          comentario={comentario}
+          getSingleRecomendacion={getSingleRecomendacion}
+        />
+      );
+    })}
+  </React.Fragment>
+) : (
+  <p>Parece que de momento no hay comentarios para mostrar.</p>
+)}
+  </div>
+
+</section>
     </main>
        );
     };
