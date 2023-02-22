@@ -99,12 +99,14 @@ const handleSubmit = async (e) => {
 
   return (
     <main className={theme}>
+      <div className="EditUser">
     <form className="useredit" onSubmit={handleSubmit}>
       <h2>Edita tu información </h2>
       <label>
         <span>Nombre:</span>
         <input
           name="nombre"
+          type="text"
           value={nombre}
           onChange={(e) => setNombre(e.target.value)}
         />
@@ -119,7 +121,6 @@ const handleSubmit = async (e) => {
         />
       </label>
       <label>
-        <span>Imagen:</span>
         <input
           className="image-picker"
           name="avatar"
@@ -129,10 +130,11 @@ const handleSubmit = async (e) => {
         {avatarPreview && <img src={avatarPreview} alt="preview" />}
       </label>
       <button>Guardar cambios</button>
-    </form>
-    <section>
-      < RiDeleteBin6Line onClick={handleClick}/>              
+    <section >
+      < RiDeleteBin6Line className="delete" onClick={handleClick}/>              
     </section>
+    </form>
+      </div>
 
     </main>
   );
