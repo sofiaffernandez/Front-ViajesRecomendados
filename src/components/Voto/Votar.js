@@ -52,7 +52,6 @@ return (
         sx={{
         '& > legend': { mt: 2 },
         }}>
-        <Typography component="legend">Vota</Typography>
         <Rating
         name="simple-controlled"
         value={voto}
@@ -65,3 +64,4 @@ return (
 )
 }
 export default Votar;
+
