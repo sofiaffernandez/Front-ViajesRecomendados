@@ -139,6 +139,7 @@ const NuevaRecomendacion = () => {
         <span>Titulo </span>
         <input
           name="titulo"
+          type="text"
           value={titulo}
           onChange={(e) => setTitulo(e.target.value)}
         />
@@ -171,12 +172,10 @@ const NuevaRecomendacion = () => {
         />
       </label>
     <label>
-        <span>Texto </span>
         <ReactQuill name="texto"
-          type="text" value={texto}  onChange={(e) => setTexto(e)} modules={modules} formats={formats} />
+          type="text" className="textarea" value={texto}  onChange={(e) => setTexto(e)} modules={modules} formats={formats} />
       </label> 
-      <label>
-        <span>Foto </span>
+      <label className="foto">
         <input
           className="image-picker"
           name="foto"
