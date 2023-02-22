@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaSun, FaMoon } from 'react-icons/fa';
 import './ThemeSwitcher.css';
 
-
 function ThemeSwitcher() {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(
+    localStorage.getItem('theme') ? JSON.parse(localStorage.getItem('theme')) : false
+  );
 
   const handleThemeSwitch = () => {
     setIsDark(!isDark);
-    // Llamada a una función que cambie el modo en la API o en localStorage
   };
+
+  useEffect(() => {
+    localStorage.setItem('theme', JSON.stringify(isDark));
+  }, [isDark]);
 
   return (
     <button
@@ -23,6 +27,3 @@ function ThemeSwitcher() {
 }
 
 export default ThemeSwitcher;
-
-
-
