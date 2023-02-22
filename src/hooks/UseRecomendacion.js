@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getSigleRecomendacion } from "../services/GetSingleRecomendacion";
+import  getSingleRecomendacion  from "../services/GetSingleRecomendacion";
 
 const useRecomendacion = (id) => {
   const [recomendacion, setRecomendacion] = useState({});
@@ -10,7 +10,7 @@ const useRecomendacion = (id) => {
     const loadRecomendacion = async () => {
       try {
         setLoading(true);
-        const data = await getSigleRecomendacion(id);
+        const data = await getSingleRecomendacion(id);
 
         setRecomendacion(data[0]);
       } catch (error) {
