@@ -2,7 +2,7 @@ import Spinner from "../../components/Spinner/Spinner";
 import { useState } from 'react';
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-
+import "./Comentar.css"
 const Comentar = () => {
   const { id } = useParams();
     const [ comentarios, setComentarios ] = useState([]);
@@ -51,12 +51,13 @@ if (status === "loading") {
 return (
 <>
 <form onSubmit={handleSubmit}>
-      <label>Comentario:</label>
       <textarea
         type="text"
+        className="texto-comentario"
+        placeholder="Deja tu comentario"
         value={comentario}
         onChange={(e) => setComentario(e.target.value)}/>
-    <button type="submit">Comentar</button>
+    <button type="submit">Comenta</button>
 </form>
 </>
 )}
