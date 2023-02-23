@@ -22,27 +22,27 @@ const Header = () => {
         <nav>
             <ul>
                 <li>
-                    <Link to="/">
+                    <Link to="/" >
                     <img src={logo} alt ="logo pagina" />
                     </Link>
                 </li>
                 <li>
-                    <Link to="/">
+                    <Link to="/" className="my-link">
                     Home
                     </Link>
                 </li>
                 <li>
-                    <Link to="/recomendaciones">
+                    <Link to="/recomendaciones" className="my-link">
                     Recomendaciones
                     </Link>
                 </li>
                 <li>
-                    <Link to="/usuarios">
+                    <Link to="/usuarios" className="my-link">
                     Perfiles
                     </Link>
                 </li>
                 <li>
-                    <Link to="/about">
+                    <Link to="/about" className="my-link">
                     AboutUs
                     </Link>
                 </li>
@@ -59,10 +59,10 @@ const Header = () => {
               ) : (
             <>
               <li>
-                <Link to="/usuario/login">Accede</Link>
+                <Link to="/usuario/login" className="my-link" >Accede</Link>
               </li>
               <li>
-                <Link to="/usuario/crear">Únete</Link>
+                <Link to="/usuario/crear" className="my-link" >Únete</Link>
               </li>
             </>
           )}

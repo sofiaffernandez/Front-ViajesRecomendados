@@ -17,7 +17,9 @@ section ul.listaRecomendaciones{
     justify-self: center;
     align-items: center;
 }
-
+main.dark ul.listaRecomendaciones li{
+  background-color: #405155;
+}
 
 section ul.listaRecomendaciones li{
 position: relative;

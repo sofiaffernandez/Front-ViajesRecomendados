@@ -27,6 +27,9 @@ h1{
 h2{
   font-family: "Baloo 2", sans-serif;
 }
+header a:hover{
+  color: #405155;
+}
 
 main.light{
   background-color: whitesmoke;
@@ -69,16 +72,33 @@ main.dark h2{
   }
 
 main.dark form ul{
-  background-color: whitesmoke;
+  background-color: #405155;
   color: black;
 }
 
-button {
+main.light button {
     background-color: rgb(147, 195, 207);
     color: black;
     border: none;
+    width: 10%;
+    height: 3rem;
+    font-family: "Baloo 2",sans-serif;
+    font-size: large;
+    font-weight: 700;
     border-radius: 0.25rem;
     padding: 0.5rem 1rem;
     margin: 1rem;
 }
-  
+main.dark button {
+  background-color: #405155;
+  color: white;
+  border: none;
+  width: 10%;
+  height: 3rem;
+  font-family: "Baloo 2",sans-serif;
+  font-size: large;
+  font-weight: 700;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  margin: 1rem;
+}

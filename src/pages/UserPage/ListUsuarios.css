@@ -32,6 +32,9 @@ ul.listaPerfiles {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
     text-overflow: ellipsis;
   }
+  main.dark ul.listaPerfiles li{
+    background-color: #405155;
+  }
   ul.listaPerfiles li img{
     width: 100px;
   height: 100px;
