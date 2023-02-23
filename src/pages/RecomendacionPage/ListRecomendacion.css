@@ -48,4 +48,8 @@ overflow: hidden;
     padding: 0.5rem 1rem;
     margin: 1rem;
   }
-  
+  section ul.listaRecomendaciones img{
+  width: 20rem;
+  }
+
+ 

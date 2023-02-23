@@ -7,6 +7,8 @@ import "./NuevaRecomendacionPage.css"
 import ReactQuill from 'react-quill';
 import "react-quill/dist/quill.snow.css";
 import Quill from 'quill';
+import sanitizeHtml from 'sanitize-html';
+
 const {REACT_APP_BACKEND } = process.env;
 
 
@@ -60,7 +62,7 @@ const NuevaRecomendacion = () => {
       setCategoria(categoria);
       setLugar(lugar);
       setEntradilla(entradilla)
-      setTexto(texto);
+      setTexto(sanitizeHtml(texto))
       setFoto(foto)
     
   }, [ 
@@ -97,13 +99,13 @@ const NuevaRecomendacion = () => {
     formData.append("categoria", categoria); 
     formData.append("lugar", lugar); 
     formData.append("entradilla", entradilla); 
-    formData.append("texto", texto); 
+    formData.append("texto",  sanitizeHtml(texto)); 
     formData.append("foto", foto); 
 
     const res = await fetch(  `${REACT_APP_BACKEND}/recomendacion/crear`, {
       method: "POST",
       headers: {
-        Authorization: token,},
+        Authorization: token},
       body: formData,
     });
     const data = await res.json();
@@ -136,7 +138,7 @@ const NuevaRecomendacion = () => {
     <form className="nuevaRecomendacion" onSubmit={handleSubmit}>
     <h2>Nueva Recomendación</h2>
       <label>
-        <span>Titulo </span>
+       Titulo 
         <input
           name="titulo"
           type="text"
@@ -145,7 +147,7 @@ const NuevaRecomendacion = () => {
         />
       </label>
       <label>
-        <span>Categoria </span>
+       Categoria 
         <input
           name="categoria"
           type="text"
@@ -154,7 +156,7 @@ const NuevaRecomendacion = () => {
         />
       </label>
       <label>
-        <span>Lugar </span>
+       Lugar 
         <input
           name="lugar"
           type="text"
@@ -163,7 +165,7 @@ const NuevaRecomendacion = () => {
         />
       </label>
       <label>
-        <span>Entradilla </span>
+       Entradilla 
         <input
           name="entradilla"
           type="text"

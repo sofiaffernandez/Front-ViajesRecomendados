@@ -21,6 +21,10 @@ function Home() {
     <section className="Buscador">
       <Buscador /> 
       </section>
+      <section  className="recomendaciones">
+      <h2> Últimas recomendaciones </h2>
+      <Ultimas />
+      </section>
       <h2>Vota y comenta las recomendaciones<br/></h2>
     <section className="Voto">
       <img src={chicosplaya} alt="pareja en la playa" />
@@ -37,10 +41,6 @@ function Home() {
                 null )}
       </section>
                 
-      <section  className="recomendaciones">
-      <h2> Últimas recomendaciones </h2>
-      <Ultimas />
-      </section>
     </main>)
   }
   

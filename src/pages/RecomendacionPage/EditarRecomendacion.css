@@ -1,26 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Epilogue:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Lilita+One&family=Sniglet:wght@400;800&display=swap');
 
-form.nuevaRecomendacion {
+form.editarRecomendacion  {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-form.nuevaRecomendacion h2{
+form.editarRecomendacion   h2{
   font-family: "baloo 2", sans-serif;
   margin-top: 2%;
 }
-form.nuevaRecomendacion span{
+form.editarRecomendacion   span{
   font-family: "Epilogue";
 }
-form.nuevaRecomendacion label{
+form.editarRecomendacion   label{
   display: flex;
   flex-direction: column;
   margin-bottom: 1rem;
   border-radius: 0.25rem;
   width: 80%;
 }
-form.nuevaRecomendacion input[type="text"],
-form.nuevaRecomendacion select {
+form.editarRecomendacion   input[type="text"],
+form.editarRecomendacion   select {
   border: 1px solid gray;
   border-radius: 5px;
   font-size: 1rem;
@@ -35,7 +35,7 @@ label.foto{
 }
 
 
-form.nuevaRecomendacion button {
+form.on  button {
   background-color: rgb(147, 195, 207);
   color: black;
   border: none;
@@ -48,11 +48,11 @@ form.nuevaRecomendacion button {
 
 @media only screen and (min-width: 600px) {
   
-  form.nuevaRecomendacion input, form.nuevaRecomendacion textarea {
+  form.editarRecomendacion   input, form.on  textarea {
     font-size: 1rem;
   }
   
-  form.nuevaRecomendacion button {
+  form.editarRecomendacion   button {
     font-size: 1rem;
   }
   

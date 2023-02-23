@@ -2,7 +2,13 @@ main div.error {
 display: flex;
   flex-direction: column;
   justify-content: center;
-  justify-items: center;
+
+}
+section.error{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 section.error h1{
     margin:1rem;

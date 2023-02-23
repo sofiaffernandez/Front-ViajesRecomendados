@@ -24,7 +24,7 @@ import {ThemeProvider} from "./context/ThemeContext";
 import EditUser from "./pages/EditUserPage/EditUserPage";
 import ListRecomendaciones from "./pages/RecomendacionPage/ListRecomendacion";
 import ListUsuarios from "./pages/UserPage/ListUsuarios";
-import EditarRecomendacion from "./pages/RecomendacionPage/EditarRecomendacion.";
+import EditarRecomendacion from "./pages/RecomendacionPage/EditarRecomendacion";
 
 
 function App() {

@@ -80,7 +80,7 @@ main.light button {
     background-color: rgb(147, 195, 207);
     color: black;
     border: none;
-    width: 10%;
+    
     height: 3rem;
     font-family: "Baloo 2",sans-serif;
     font-size: large;
@@ -93,7 +93,6 @@ main.dark button {
   background-color: #405155;
   color: white;
   border: none;
-  width: 10%;
   height: 3rem;
   font-family: "Baloo 2",sans-serif;
   font-size: large;

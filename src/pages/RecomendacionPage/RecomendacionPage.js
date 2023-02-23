@@ -98,7 +98,7 @@ const RecomendacionPage = () => {
       }
  })
 })
-},[recomendacion.autor_id]);
+},[recomendacion.autor_id, id]);
 
 
   if (loading) {
@@ -141,7 +141,7 @@ const {foto} = fotos;
       <main className={theme}>
     <section className="UnicaRecomendacion">
       {recomendacion && (
-        <section>
+        <section >
           <h2>{recomendacion.titulo}</h2>
           { foto ? (
             <img src={`${process.env.REACT_APP_BACKEND}/public/${foto}`} alt={recomendacion.titulo} />
@@ -210,10 +210,10 @@ const {foto} = fotos;
             );
             return (
               <li key={comentario.id}>
+                <p> {usuario.nombre}:</p>
                 <p>{comentario.comentario}</p>
                 <p>{new Date(comentario.created_at).toLocaleDateString('es-ES')}</p>
                 <Link to={`/usuario/${comentario.usuario_id}/detalle`}>
-                  <p>Comentario hecho por {usuario.nombre}</p>
                 </Link>
                 {comentario.usuario_id === idLogin ? (
                     <section>

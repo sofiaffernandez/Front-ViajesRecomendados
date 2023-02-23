@@ -7,14 +7,15 @@ import ReactQuill from 'react-quill';
 import "react-quill/dist/quill.snow.css";
 import { useParams } from "react-router-dom";
 import Quill from 'quill';
+import "./EditarRecomendacion.css"
 import  useRecomendacion   from "../../hooks/UseRecomendacion"
+import sanitizeHtml from 'sanitize-html';
 const {REACT_APP_BACKEND } = process.env;
 
 const EditarRecomendacion = () => {
   const { id } = useParams();
   const { theme } = useThemeContext();
-  const { recomendacion, loading } = useRecomendacion(id);
-  
+  const { recomendacion } = useRecomendacion(id);
   const [titulo, setTitulo] = useState("");
   const [categoria, setCategoria] = useState("");
   const [lugar, setLugar] = useState("");
@@ -58,21 +59,19 @@ const EditarRecomendacion = () => {
   ];
 
   useEffect(() => {
-      setTitulo(titulo);
-      setCategoria(categoria);
-      setLugar(lugar);
-      setEntradilla(entradilla)
-      setTexto(texto);
-      setFoto(foto)
+    setTitulo(recomendacion.titulo);
+    setCategoria(recomendacion.categoria);
+    setLugar(recomendacion.lugar);
+    setEntradilla(recomendacion.entradilla)
+    setTexto(recomendacion.texto);
     
-  }, [ 
-    titulo, 
-    categoria,
-    lugar,
-    entradilla,
-    texto,
-    foto
-  ]);
+    }, [
+    recomendacion.titulo,
+    recomendacion.categoria,
+    recomendacion.lugar,
+    recomendacion.entradilla,
+    recomendacion.texto,
+    ]);
   const editorRef = useRef(null);
 
   useEffect(() => {
@@ -91,21 +90,19 @@ const EditarRecomendacion = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  try {
-
     setStatus("loading");
     const formData = new FormData();
     formData.append("titulo", titulo);
     formData.append("categoria", categoria); 
     formData.append("lugar", lugar); 
     formData.append("entradilla", entradilla); 
-    formData.append("texto", texto); 
+    formData.append("texto", sanitizeHtml(texto));  
     formData.append("foto", foto); 
-
+    try {
     const res = await fetch(  `${REACT_APP_BACKEND}/recomendacion/${id}/editar`, {
       method: "PUT",
       headers: {
-        Authorization: token,},
+        Authorization: token},
       body: formData,
     });
     const data = await res.json();
@@ -138,7 +135,7 @@ const EditarRecomendacion = () => {
     <form className="editarRecomendacion" onSubmit={handleSubmit}>
     <h2>Editar recomendación</h2>
       <label>
-        <span>Titulo </span>
+        Titulo 
         <input
           name="titulo"
           value={titulo ? titulo : recomendacion.titulo}
@@ -146,7 +143,7 @@ const EditarRecomendacion = () => {
         />
       </label>
       <label>
-        <span>Categoria </span>
+        Categoria 
         <input
           name="categoria"
           type="text"
@@ -155,7 +152,7 @@ const EditarRecomendacion = () => {
         />
       </label>
       <label>
-        <span>Lugar </span>
+        Lugar 
         <input
           name="lugar"
           type="text"
@@ -164,7 +161,7 @@ const EditarRecomendacion = () => {
         />
       </label>
       <label>
-        <span>Entradilla </span>
+        Entradilla 
         <input
           name="entradilla"
           type="text"
@@ -173,7 +170,7 @@ const EditarRecomendacion = () => {
         />
       </label>
     <label>
-        <span>Texto </span>
+        Texto 
         <ReactQuill 
         name="texto"
         type="text"
@@ -183,7 +180,6 @@ const EditarRecomendacion = () => {
         formats={formats} />
       </label> 
       <label>
-        <span>Foto </span>
         <input
           className="image-picker"
           name="foto"

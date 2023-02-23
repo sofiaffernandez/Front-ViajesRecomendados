@@ -1,33 +1,55 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { GetAllRecomendaciones } from "../../services/GetAllRecomendaciones";
-import "./ListRecomendacion.css"
+import { GetFotoRecomendacion } from "../../services/GetFotoRecomendacion";
+import "./List3Ultimas.css"
 const Ultimas = () => {
     const [recomendaciones, setRecomendaciones] = useState([]);
     const [page] = useState(0);
-   
+    const [fotos, setFotos] = useState([]);
+
     useEffect(() => {
       GetAllRecomendaciones(page).then((data) => setRecomendaciones(data));
     }, [page]);
+    useEffect(() => {
+      // Se utiliza la variable recomendaciones para obtener las fotos
+      const promises = recomendaciones?.map((recomendacion) => {
+        return GetFotoRecomendacion(recomendacion.id);
+      });
   
+      // Se utiliza Promise.all para esperar a que todas las promesas se resuelvan
+      Promise.all(promises).then((fotoData) => {
+        const fotos = fotoData?.map((data) =>
+        data && data.fotosRecomendacion?.length > 0 ? data.fotosRecomendacion[0][0]?.foto : null
+      );
+        setFotos(fotos);
+      });
+    }, [recomendaciones]);
     return (
       <section>
-        <ul className="listaRecomendaciones">
-          {recomendaciones.length > 0 ? (
-          recomendaciones.slice(0,3).map((recomendacion) => (
-                    <li key={recomendacion.id} > 
-                    <Link to={`/recomendacion/${recomendacion.id}/detalle`}>
-                       <h3>{recomendacion.titulo}</h3>
-                    </Link>
-                        <h4>📍{recomendacion.lugar}</h4>
-                        <h4>{recomendacion.categoria}</h4>
-                        <p>{recomendacion.entradilla}</p>
-                      
-                    </li>
-          ))
+        <ul className="lista3Recomendaciones">
+        {recomendaciones.length > 0 ? (
+            recomendaciones.slice(0,3).map((recomendacion, index) => {
+              const foto = fotos[index];
+
+              return (
+                <li key={recomendacion.id}>
+                  <Link to={`/recomendacion/${recomendacion.id}/detalle`}>
+                  {foto ? (
+                    <img
+                      src={`${process.env.REACT_APP_BACKEND}/public/${foto}`}
+                      alt={recomendacion.titulo}
+                    />
+                  ) : null}
+                    <h3>{recomendacion.titulo}</h3>
+          
+                  </Link>
+                </li>
+              );
+            })
           ) : (
             <p>Parece que de momento no hay recomendaciones para mostrar.</p>
-            )}
+          )}
         </ul>
     </section>
     )

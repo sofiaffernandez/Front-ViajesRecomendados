@@ -1,0 +1,72 @@
+.lista3Recomendaciones {
+    list-style: none;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    margin: 1rem;
+  }
+  
+  .lista3Recomendaciones li {
+    flex: 0 0 33%;
+    min-width: 33%;
+    max-width: 33%;
+    position: relative;
+    text-align: center;
+  }
+  
+  .lista3Recomendaciones li:first-child {
+    flex: 0 0 30%;
+    min-width: 30%;
+    max-width: 30%;
+    position: relative;
+    text-align: center;
+   
+  }
+  
+  .lista3Recomendaciones li:nth-child(2) {
+    flex: 0 0 40%;
+    min-width: 40%;
+    max-width: 40%;
+    position: relative;
+    text-align: center;
+  
+  }
+  .lista3Recomendaciones li:nth-child(3) {
+    flex: 0 0 30%;
+    min-width: 30%;
+    max-width: 30%;
+    position: relative;
+    text-align: center;
+
+  }
+  
+  .lista3Recomendaciones li:hover {
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+  }
+  
+  .lista3Recomendaciones li h3 {
+    display: none;
+    position: absolute;
+    z-index: 5;
+    bottom: 0;
+    padding: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.9);
+    width: 100%;
+  }
+  
+  .lista3Recomendaciones li:hover h3{
+    display: block;
+  }
+
+  .lista3Recomendaciones li img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  .lista3Recomendaciones li:hover img {
+    filter: blur(3px);
+  }

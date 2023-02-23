@@ -2,7 +2,6 @@ import Box from '@mui/material/Box';
 import Spinner from "../../components/Spinner/Spinner";
 import * as React from 'react';
 import Rating from '@mui/material/Rating';
-import Typography from '@mui/material/Typography';
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
