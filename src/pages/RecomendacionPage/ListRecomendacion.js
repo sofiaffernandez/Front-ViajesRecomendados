@@ -15,7 +15,7 @@ const ListRecomendaciones = () => {
 
   return (
     <main className={theme}>
-    <section>
+    <section className="lista">
       <ul className="listaRecomendaciones">
         {recomendaciones.length > 0 ? (
         recomendaciones.slice(page * 10, page * 10 + 10).map((recomendacion) => (

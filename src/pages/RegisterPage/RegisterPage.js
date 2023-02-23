@@ -62,8 +62,6 @@ const Registro = ({ setUser }) => {
           />
         </label>
           </li>
-        </ul>
-        <ul>
           <li>
         <label>
           Email <br/>
@@ -75,33 +73,29 @@ const Registro = ({ setUser }) => {
           />
         </label>
           </li>
-        </ul>
-        <ul>
-          <li>
+          <li className="contrasena">
         <label>
           Contraseña <br/>
           <input
-            value={contraseña}
+            value={contraseña} 
             onChange={(e) => {
               setContraseña(e.target.value);
             }}
             type={shown ? 'text' : 'password'}
             name="contraseña"
           />
-           < MdOutlineVisibility onClick={switchShown} />
         </label>
+           < MdOutlineVisibility className="verContrasena" onClick={switchShown} />
           </li>
-        </ul>
-        <ul>
-          <li>
+          <li className="contrasena">
         <label>
           Repite tu contraseña <br/>
           <input
             type={shown ? 'text' : 'password'}
             name="contraseña"
           />
-           < MdOutlineVisibility onClick={switchShown} />
         </label>
+           < MdOutlineVisibility className="verContrasena" onClick={switchShown} />
           </li>
         </ul>
         <button>Unete</button>

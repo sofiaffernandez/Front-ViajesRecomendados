@@ -32,7 +32,6 @@ function App() {
     <div className="App">
     <ThemeProvider >
     <Header />
-      <main>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/recomendaciones" element={<ListRecomendaciones/>} />
@@ -47,7 +46,6 @@ function App() {
         <Route path="/recomendacion/formulario" element={<NuevaRecomendacionPage />}/>
         <Route path="/usuario/:id" element={<EditUser />}/>
       </Routes>
-      </main>
       <Footer />
       <ToastContainer position="bottom-center" pauseOnHover theme="dark" />
   </ThemeProvider>

@@ -133,30 +133,47 @@ const handleClick = async (e) => {
 const { nombre} = usuario;
 const {foto} = fotos; 
 
+
     if (status === "loading") {
       return <Spinner />;
     }
-  return (
-    <main className={theme}>
+    return (
+      <main className={theme}>
     <section className="UnicaRecomendacion">
       {recomendacion && (
         <section>
           <h2>{recomendacion.titulo}</h2>
           { foto ? (
             <img src={`${process.env.REACT_APP_BACKEND}/public/${foto}`} alt={recomendacion.titulo} />
-
-          ):(
-                null )
-          }
+            
+            ):(
+              null )
+            }
                  
           <h3>📍{recomendacion.lugar}</h3>
           <h3>{recomendacion.categoria}</h3>
           <p>{recomendacion.entradilla}</p>
           <p>{recomendacion.texto}</p>
-          <p>Creada por <Link to={`/usuario/${recomendacion.autor_id}/detalle`}>{nombre}</Link> {" "} 
+          <p className="creada">Creada por <Link to={`/usuario/${recomendacion.autor_id}/detalle`}>{nombre}</Link> {" "} 
          at {new Date(recomendacion.created_at).toLocaleDateString('es-ES')}
         </p>
-        <p>La media de votos es: {votos}</p>
+        <div className="estrellas">
+            { token ? (
+                     <section>
+                       <Votar /> 
+        
+                     </section>
+                       ) : (
+                         <p> Registrate para poder votar </p>
+                       )}
+        { votos.length === 0 ? (
+          <p className="votos">Aún no hay votos registrados</p>
+          ) :(
+            <p className="votos"> ({votos})</p>
+        )
+        }
+          
+        </div>
         </section>
       )}
         { recomendacion.autor_id === idLogin ? (
@@ -177,16 +194,8 @@ const {foto} = fotos;
                            ) : (
                              null
                            )}
-       { token ? (
-                <section>
-                  <Votar /> 
-  
-                </section>
-                  ) : (
-                    <p> Registrate para poder votar </p>
-                  )}
      {token ? (
-                 <section>
+                 <section className="comentar">
                   <Comentar /> 
                 </section>
                   ) : (

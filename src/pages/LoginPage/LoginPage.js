@@ -73,9 +73,7 @@ const { theme } = useThemeContext();
           />
         </label>
           </li>
-        </ul>
-    <ul>
-      <li>
+      <li className="contrasena">
         <label>
           Contraseña
           <input
@@ -87,8 +85,8 @@ const { theme } = useThemeContext();
             name="contraseña"
           />
         </label>
+      < MdOutlineVisibility className="verContrasena" onClick={switchShown} />
       </li>
-      < MdOutlineVisibility onClick={switchShown} />
     </ul>
         <button>Accede</button>
       </form>

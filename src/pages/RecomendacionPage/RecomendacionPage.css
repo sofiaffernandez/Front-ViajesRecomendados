@@ -2,9 +2,8 @@
 section.UnicaRecomendacion{
     justify-content: flex-start;
     justify-self:center;
-    width: 100%;
-    padding: 1rem;
-    gap:1rem;
+    padding:5%;
+    gap:2%;
 }
 section.UnicaRecomendacion h2{
     font-family: "Epilogue",sans-serif;
@@ -13,20 +12,44 @@ section.UnicaRecomendacion h2{
     text-align: center;
 }
 section.UnicaRecomendacion h3{
-    padding-left:0.5rem ;
-    padding-bottom: 0.5rem;
+    padding-left:2%;
+    padding-bottom: 2%;
 }
 section.UnicaRecomendacion img{
     float: right;
-    margin-left: 20px;
+    margin-left: 2%;
 }
 
 section.UnicaRecomendacion p{
-    padding: 0.5rem;
     text-align: justify;
 }
+section.UnicaRecomendacion p.creada
+{
+font-size: small;
+padding-top: 1% ;
+padding-bottom:2%;
+}
+
+
 section.UnicaRecomendacion img{
     display: block;
     width: 100px;
     height: 100px;
 }
+.texto-comentario {
+    width: 300px;
+    height: 100px;
+  }
+  div.estrellas{
+    display: flex;
+  }
+  section.comentar{
+    display: flex;
+    justify-content: center;
+  }
+  ul.listacomentarios{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+  

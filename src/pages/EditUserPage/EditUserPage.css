@@ -1,71 +1,82 @@
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Epilogue:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Lilita+One&family=Sniglet:wght@400;800&display=swap');
-
-main.useedit{
-    background-size:cover;
-    justify-content: center;
-    justify-items: center;
-    align-self: center;
-  }
-
-form.useredit {
-  background: rgba(255, 255, 255, 0.822);
-  border: 2px solid #00000042;
-  box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
-  width: 25rem;
-  height: 25rem;
-  border-radius: 15px;
-  padding: 2rem 1rem;
-  gap: 1.5rem;
-  align-self: center;
+div.EditUser {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  justify-items: center;
+  align-items: center;
 }
-
-form.useredit label{
-  padding: 5px;
+form.useredit {
+  margin-top:15% ;
+  align-self: center;
+  border: 2px solid #92929242;
+  box-sizing: inherit;
+  border-radius: 5%;
   display: flex;
-  justify-content: center;
-  justify-items: center;
-  align-self: center;
-}
-form.useredit input {
-  height: 1.5rem;
-  width: 13rem;
-  border-radius: 5px;
-}
-form.useredit button {
-  background: #353636;
-  border:none;
-  color: white;
-  border-radius: 20px;
-  height: 150px;
-  width: 150px;
-  margin-top: 1rem;
-  font-family: "baloo 2", sans-serif;
-  font-weight: 500;
-  justify-content: center;
-  justify-items: center;
-  align-self: center;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
 }
 form.useredit h2{
-font-family: "Epilogue", sans-serif;
-font-style: normal;
-padding: 5px;
-font-weight: 500;
-font-size: 25px;
-line-height: 37px;
-text-align: center;
-}
-form.useredit  {
   font-family: "baloo 2", sans-serif;
+  margin-top: 2%;
+}
+form.useredit span{
+  font-family: "Epilogue";
+}
+form.useredit label{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  border-radius: 0.25rem;
+  width: 90%;
+}
+form.useredit input[type="text"],
+form.useredit input[type="email"],
+form.useredit select {
+  border: 1px solid gray;
+  border-radius: 5px;
+  font-size: 1rem;
+  width: 90%;
+  height: 2rem; 
+  line-height: 2rem; 
+}
+label.foto{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-button:hover {
-  opacity: 0.8;
-}
-@media (min-width: 600px) { 
 
+form.useredit button {
+  background-color: rgb(147, 195, 207);
+  color: black;
+  border: none;
+  border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.delete{
+  font-size: 25px;
+  margin: 5%;
 }
 
+@media only screen and (min-width: 600px) {
+  
+  form.useredit input, form.useredit textarea {
+    font-size: 1rem;
+  }
+  
+  form.useredit button {
+    font-size: 1rem;
+  }
+  
+  .image-picker {
+    margin-top: 1rem;
+  }
+  
+  .preview-image {
+    max-width: 100%;
+    margin-top: 1rem;
+  }
+}

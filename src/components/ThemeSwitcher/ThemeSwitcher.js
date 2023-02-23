@@ -1,29 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import { useThemeContext } from "../../context/ThemeContext";
 import { FaSun, FaMoon } from 'react-icons/fa';
 import './ThemeSwitcher.css';
 
 function ThemeSwitcher() {
-  const [isDark, setIsDark] = useState(
-    localStorage.getItem('theme') ? JSON.parse(localStorage.getItem('theme')) : false
-  );
-
-  const handleThemeSwitch = () => {
-    setIsDark(!isDark);
-  };
-
-  useEffect(() => {
-    localStorage.setItem('theme', JSON.stringify(isDark));
-  }, [isDark]);
-
+  const { theme, toggleTheme } = useThemeContext();
   return (
     <button
-      className={`theme-switcher ${isDark ? 'dark' : 'light'}`}
-      onClick={handleThemeSwitch}
-      style={{ cursor: 'pointer' }}
-    >
-      {isDark ? <FaSun /> : <FaMoon />}
-    </button>
-  );
+    className={`theme-switcher ${theme}`}
+    onClick={toggleTheme}
+    style={{ cursor: "pointer" }}
+  >
+    {theme === "light" ? <FaMoon /> : <FaSun />}
+  </button>
+);
 }
 
 export default ThemeSwitcher;

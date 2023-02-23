@@ -14,30 +14,31 @@ function Home() {
     <main className={theme}>
       <h1>Explora el mundo con Plan B</h1>
       <section   className="Presentacion">
-      <p>Comparte tus recomendaciones de viaje <br/>con otros usuarios y descubre los mejores<br/> planes para tu próximo viaje.</p>
+      <p>Comparte tus recomendaciones de viaje con otros usuarios y descubre los mejores planes para tu próximo viaje. Nuestra plataforma es un lugar para conocer, compartir e intercambiar recomendaciones sobre los mejores destinos turísticos del mundo.</p>
       <img src={chicamundo} alt="chica con la bola del mundo"/>
       </section>
-      <h2>Encuentra experiencias únicas</h2>
+      <h2>Encuentra experiencias únicas<br/></h2>
     <section className="Buscador">
       <Buscador /> 
       </section>
-      <h2>Vota y comenta las recomendaciones.</h2>
+      <h2>Vota y comenta las recomendaciones<br/></h2>
     <section className="Voto">
       <img src={chicosplaya} alt="pareja en la playa" />
-      <p>Nuestra plataforma es un lugar para conocer, compartir e intercambiar recomendaciones sobre los mejores destinos turísticos del mundo. Tendrás la oportunidad de votar las recomendaciones de otros usuarios, comentar sobre ellas y descubrir el perfil de otros viajeros. Otros usuarios también pueden votar y comentar tus recomendaciones. Esto te ayudará a descubrir los mejores planes y a encontrar los mejores consejos sobre un destino que te interese.</p>
+      <p> Tendrás la oportunidad de votar las recomendaciones de otros usuarios, comentar sobre ellas y descubrir el perfil de otros viajeros. Otros usuarios también pueden votar y comentar tus recomendaciones. Esto te ayudará a descubrir los mejores planes y a encontrar los mejores consejos sobre un destino que te interese.</p>
       </section>
-      <section>
+      <section className="accede">
       { !usuario ? (
-              <li>
+              <>
+              <h2>Accede a la comunidad</h2>
               <p>¡Únete a nosotros y empieza a explorar el mundo! Comparte tus recomendaciones, vota y comenta sobre las recomendaciones de otros usuarios y descubre nuevos destinos. ¡Sea cual sea tu destino, aquí encontrarás la mejor manera de disfrutarlo!</p>
-              <Link to="/usuario/login">Accede</Link>
-            </li>
+              <Link to="/usuario/login" className="accedeLink">Accede</Link>
+            </>
               ):(
                 null )}
       </section>
                 
       <section  className="recomendaciones">
-      <h3> Últimas recomendaciones </h3>
+      <h2> Últimas recomendaciones </h2>
       <Ultimas />
       </section>
     </main>)
