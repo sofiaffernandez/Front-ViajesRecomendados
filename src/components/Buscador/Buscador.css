@@ -56,7 +56,15 @@
     flex-direction: row;
     align-items: center;
   }
-  
+  li.resultados {
+    margin: 1rem;
+    padding: 1rem;
+    border: 1px solid gray;
+    border-radius: 5px;
+    max-width: 300px;
+    text-align: center;
+  }
+
   @media only screen and (min-width: 768px) {
     .buscador-inputs {
       flex-direction: row;
@@ -76,6 +84,9 @@
   
     .buscador-inputs-bottom-row select {
       margin-left: 10px;
+    }
+    li.resultados {
+      justify-content: space-between;
     }
   }
   

@@ -86,7 +86,7 @@
                 lugar === ""
                 ) {
                 return (
-                    <li key={result.id}>
+                    <li className="resultados" key={result.id}>
                     <Link to={`/recomendacion/${result.id}/detalle`}>
                         <h3>{result.titulo}</h3>
                     </Link>
