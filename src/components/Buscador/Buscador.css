@@ -1,68 +1,81 @@
 .buscador-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin: 20px 0;
+    align-items: flex-start;
+    margin-top: 20px;
+    justify-content: flex-start;
   }
   
   .buscador-inputs {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+  
+  .buscador-inputs-top-row {
+    display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
     margin-bottom: 20px;
   }
   
   .buscador-input {
     padding: 10px;
-    margin: 0 10px;
+    border: 2px solid #2F4858;
     border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 16px;
-    min-width: 250px;
-  }
-  
-  .buscador-select {
-    padding: 10px;
-    margin: 0 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    margin-right: 10px;
     font-size: 16px;
   }
   
   .buscador-button {
-    background-color: #0077cc;
-    color: #fff;
+    padding: 10px 15px;
     border: none;
     border-radius: 5px;
-    padding: 10px 15px;
-    margin-left: 10px;
+    background-color: #2F4858;
+    color: white;
     font-size: 16px;
     cursor: pointer;
   }
   
-  .buscador-resultados {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  .buscador-button:not(:last-child) {
+    margin-right: 10px;
   }
   
-  .buscador-resultados li {
-    margin-bottom: 10px;
-  }
-  
-  .buscador-resultados a {
-    color: #0077cc;
-    text-decoration: none;
-  }
-  
-  .buscador-resultados h3 {
-    margin: 0;
-    font-size: 24px;
-  }
-  
-  .buscador-resultados h4 {
-    margin: 5px 0;
+  .buscador-select {
+    padding: 10px;
+    border: 2px solid #2F4858;
+    border-radius: 5px;
+    margin-right: 10px;
     font-size: 16px;
+    background-color: white;
+  }
+  
+  .buscador-inputs-bottom-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  @media only screen and (min-width: 768px) {
+    .buscador-inputs {
+      flex-direction: row;
+      justify-content: flex-start;
+      margin-left: -10px;
+    }
+  
+    .buscador-inputs-top-row {
+      margin-right: 20px;
+      margin-bottom: 0;
+    }
+  
+    .buscador-inputs-bottom-row {
+      margin-left: 20px;
+      margin-bottom: 0;
+    }
+  
+    .buscador-inputs-bottom-row select {
+      margin-left: 10px;
+    }
   }
   
