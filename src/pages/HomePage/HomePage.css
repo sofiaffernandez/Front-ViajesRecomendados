@@ -27,6 +27,9 @@
   section.Voto img {
     display: none;
   }
+  .imagenAccede{
+   display: none;
+ }
   section.accede h2,
   section.recomendaciones h2 {
     font-size: 1.5rem;
@@ -95,5 +98,27 @@ section.accede a {
     border-radius: 0.25rem;
     padding: 0.5rem 1rem;
     margin: 1rem;
+    display: block;
+  margin-top: 20px;
+  width: 5rem;
+  justify-content: center;
 }
+div .contenedorAccede{
+   display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
+}
+.imagenAccede{
+   width: 50%;
+  height: auto;
+  margin-left: 20px;
+}
+.contenedorTexto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50%;
+}
+
 }

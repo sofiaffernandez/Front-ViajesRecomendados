@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { GetAllRecomendaciones } from "../../services/GetAllRecomendaciones";
 import { GetFotoRecomendacion } from "../../services/GetFotoRecomendacion";
+import { useUser } from "../../context/UserContext";
 import "./List3Ultimas.css"
 const Ultimas = () => {
     const [recomendaciones, setRecomendaciones] = useState([]);
     const [page] = useState(0);
     const [fotos, setFotos] = useState([]);
-
+    const usuario = useUser();
     useEffect(() => {
       GetAllRecomendaciones(page).then((data) => setRecomendaciones(data));
     }, [page]);
@@ -44,15 +45,33 @@ const Ultimas = () => {
                     <h3>{recomendacion.titulo}</h3>
           
                   </Link>
-                </li>
-              );
-            })
-          ) : (
-            <p>Parece que de momento no hay recomendaciones para mostrar.</p>
-          )}
-        </ul>
+                  </li>
+            );
+          })
+        ) : (
+            <section className="noRecomendaciones">
+            <p className="noRecomendacion">
+              Parece que de momento no hay recomendaciones para mostrar. ¡Puedes empezar creándolas tú!
+            </p>
+            {!usuario ? ( 
+              <>
+                <h3>Accede a la comunidad</h3>
+                <Link to="/usuario/login" className="accedeLink">
+                  Accede
+                </Link>
+              </>
+            ) : (
+              <>
+                <h3>Crea nuevas recomendaciones</h3>
+                <Link to="/recomendacion/formulario" className="creaLink">
+                  Crea
+                </Link>
+              </>
+            )}
+          </section>
+        )}
+      </ul>
     </section>
-    )
-  };
-  
+  );
+};
   export default Ultimas;

@@ -6,7 +6,7 @@ import chicosplaya from "./../../Imagenes/chicosplaya.png"
 import Ultimas from "../RecomendacionPage/List3Ultimas";
 import { useUser } from "../../context/UserContext";
 import Buscador from "../../components/Buscador/Buscador";
-
+import chicaconposte from "../../Imagenes/chicaposte.png"
 function Home() {
   const { theme } = useThemeContext();
   const usuario = useUser();
@@ -34,8 +34,14 @@ function Home() {
       { !usuario ? (
               <>
               <h2>Accede a la comunidad</h2>
-              <p>¡Únete a nosotros y empieza a explorar el mundo! Comparte tus recomendaciones, vota y comenta sobre las recomendaciones de otros usuarios y descubre nuevos destinos. ¡Sea cual sea tu destino, aquí encontrarás la mejor manera de disfrutarlo!</p>
+              <div className="contenedorAccede">
+              <img src={chicaconposte} alt="dibujo chica con un poste de señales" className="imagenAccede" ></img>
+              <div className="contenedorTexto">
+              <p>¡Únete a nosotros y empieza a explorar el mundo! Comparte tus recomendaciones, vota y comenta sobre las recomendaciones de otros usuarios y descubre nuevos destinos. ¡Sea cual sea tu destino, aquí encontrarás la mejor manera de disfrutarlo!
+              </p>
               <Link to="/usuario/login" className="accedeLink">Accede</Link>
+              </div>
+              </div>
             </>
               ):(
                 null )}
