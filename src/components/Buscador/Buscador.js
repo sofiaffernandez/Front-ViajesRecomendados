@@ -1,6 +1,7 @@
     import { useState } from "react";
     import { BsSearch, BsTrash } from "react-icons/bs";
     import { Link } from "react-router-dom";
+    import { FaStar } from "react-icons/fa";
     import "./Buscador.css";
 
     const { REACT_APP_BACKEND } = process.env;
@@ -36,7 +37,6 @@
         setSearchResults([]);
         setShowResults(false);
     };
-
     return (
         <div className="buscador-container">
         <div className="buscador-inputs-1">
@@ -90,6 +90,19 @@
                         </Link>
                         <h4>📍{result.lugar}</h4>
                         <h4>{result.categoria}</h4>
+                        <p>
+                        {[...Array(result.votos)].map((star, i) => {
+                            return (
+                            <FaStar
+                                key={i}
+                                className="star"
+                                color="#ffc107"
+                                size={20}
+                            />
+                            );
+                        })}
+                        <span className="votos">{result.votos}</span>
+                        </p>
                     </li>
                     );
                 } else {
@@ -97,12 +110,12 @@
                 }
                 })
             ) : (
-                <p>No se encontraron resultados.</p>
+                <li>No se encontraron resultados</li>
             )}
             </ul>
         )}
         </div>
-        );
+    );
     };
 
     export default Buscador;
