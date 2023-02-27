@@ -92,6 +92,7 @@
                         <h4>{result.categoria}</h4>
                         <p>
                         {[...Array(result.votos)].map((star, i) => {
+                            console.log(result.votos)
                             return (
                             <FaStar
                                 key={i}

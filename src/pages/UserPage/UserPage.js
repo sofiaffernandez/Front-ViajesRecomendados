@@ -60,7 +60,7 @@ const PaginaUsuario = () => {
           <h3>{nombre}</h3>
            <h3>{email} </h3>
            <p>Creado en {new Date(created_at).toLocaleDateString('es-ES')}</p>
-        {id === idLogin ? (
+        {id == idLogin ? (
              <Link to={`/usuario/${id}`}>
                <TbEdit className="editar"/>
              </Link>

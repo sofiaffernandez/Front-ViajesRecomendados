@@ -70,3 +70,13 @@
   .lista3Recomendaciones li:hover img {
     filter: blur(3px);
   }
+h3{
+  margin: 1rem;
+  text-align: center;
+}
+section .noRecomendaciones{
+  display: flex;
+  flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

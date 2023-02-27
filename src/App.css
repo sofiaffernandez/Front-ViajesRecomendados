@@ -47,7 +47,8 @@ main.light a:hover{
 }
 
 main.light h1, 
-main.light h2{
+main.light h2,
+main.light h3{
 color: #062D3E;
 text-align: center;
 }
@@ -66,7 +67,8 @@ main.dark a:hover{
   color: #2f4858d7;
 }
 main.dark h1,
-main.dark h2{
+main.dark h2,
+main.dark h3{
   color: #b3c2bf;
   text-align: center;
   }
