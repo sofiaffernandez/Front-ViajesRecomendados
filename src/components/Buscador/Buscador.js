@@ -1,9 +1,11 @@
-    import { useState } from "react";
+    import { useState, useEffect } from "react";
     import { BsSearch, BsTrash } from "react-icons/bs";
     import { Link } from "react-router-dom";
+    import getVotosMedia from "../../services/GetVotosMedia";
     import { FaStar } from "react-icons/fa";
     import "./Buscador.css";
-
+    import Box from '@mui/material/Box';
+    import Rating from '@mui/material/Rating';
     const { REACT_APP_BACKEND } = process.env;
 
     const Buscador = () => {
@@ -12,6 +14,20 @@
     const [searchResults, setSearchResults] = useState([]);
     const [order, setOrder] = useState("");
     const [showResults, setShowResults] = useState(false);
+    const [votos, setVotos] = useState([]);
+    useEffect(() => {
+        searchResults.forEach((result, index) => {
+    const dataV = getVotosMedia(index);
+    dataV.then(data => {
+      const { votos_medios } = data[0];
+      if (votos_medios) {
+        const votosEnteros = parseInt(votos_medios, 10);
+        setVotos(votosEnteros);
+    }
+})
+})
+})
+
 
     const handleSearch = async () => {
         try {
@@ -90,21 +106,26 @@
                         </Link>
                         <h4>📍{result.lugar}</h4>
                         <h4>{result.categoria}</h4>
-                        <p>
-                        {[...Array(result.votos)].map((star, i) => {
-                            console.log(result)
-                            console.log(result.votos)
-                            return (
-                            <FaStar
-                                key={i}
-                                className="star"
-                                color="#ffc107"
-                                size={20}
-                            />
-                            );
-                        })}
-                        <span className="votos">{result.votos}</span>
-                        </p>
+                        <div className="estrellas">
+                            { votos.length === 0 ? (
+                            <p className="votos">Aún no hay votos registrados</p>
+                            ) :(
+                                <>
+                                <Box
+        sx={{
+        '& > legend': { mt: 2 },
+        }}>
+        <Rating
+        name="simple-controlled"
+        value={votos}
+        readOnly
+       />
+        </Box>
+                                <p className="votos"> ({votos})</p>
+                                </>
+                            )
+                            } 
+                            </div>
                     </li>
                     );
                 } else {

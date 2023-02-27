@@ -76,19 +76,13 @@ const RecomendacionPage = () => {
     foto:fotos.foto,
     })
    }
-   const date = GetAllComentarios(id)
-   date.then(data => {
+   const datoC = GetAllComentarios(id)
+   datoC.then(data => {
     const {datosComentarios} = data
     const comentarios = datosComentarios[0]
     setComentarios(comentarios)   
    })
    
-    const dataC =  GetAllComentarios(id);
-    dataC.then(data =>{
-      const { datosComentarios } = data;
-      const comentarios = datosComentarios[0];
-      setComentarios(comentarios);
-    })
     const dataV = getVotosMedia(id);
     dataV.then(data => {
       const { votos_medios } = data[0];

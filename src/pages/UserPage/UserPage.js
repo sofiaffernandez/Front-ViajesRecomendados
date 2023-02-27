@@ -92,7 +92,7 @@ const PaginaUsuario = () => {
   <h2> Comentarios de {nombre} </h2>
   <div className="divComentarios">
   {comentariosUsuario.length > 0 ? (
-  <React.Fragment>
+  <>
     {comentariosUsuario.map((comentario) => {
       return (
         <ComentarioUsuario
@@ -102,7 +102,7 @@ const PaginaUsuario = () => {
         />
       );
     })}
-  </React.Fragment>
+  </>
 ) : (
   <p>Parece que de momento no hay comentarios para mostrar.</p>
 )}
