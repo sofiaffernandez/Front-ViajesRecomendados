@@ -13,12 +13,12 @@
     }
     
     .theme-switcher.light {
-        background-color: #018765;
+        background-color: rgb(147, 195, 207);
         color: #000;
     }
     
     .theme-switcher.dark {
-        background-color: #018765;
+        background-color: #56819c;
         color: #fff;
     }
     

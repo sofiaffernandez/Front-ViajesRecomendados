@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { BsSearch, BsTrash } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import getVotosMedia from "../../services/GetVotosMedia";
 import "./Buscador.css";
 import Box from '@mui/material/Box';
-import Rating from '@mui/material/Rating';const { REACT_APP_BACKEND } = process.env;
+import Rating from '@mui/material/Rating';
+import { toast } from "react-toastify";
 
 const Buscador = () => {
   const [categoria, setCategoria] = useState("");
@@ -17,23 +17,17 @@ const Buscador = () => {
 
   const handleSearch = async () => {
       try {
-        const url = `${REACT_APP_BACKEND}/recomendaciones?categoria=${categoria}&lugar=${lugar}&order=${order}`;
-        const res = await fetch(url, { method: "GET" });
+        const res = await fetch(`${process.env.REACT_APP_BACKEND}/recomendaciones/buscar?categoria=${categoria}&lugar=${lugar}&order=${order}`, {
+          method:"GET",
+        });
+        console.log(res)
         const data = await res.json();
         setSearchResults(data.data);
+        console.log(data.data)
         setShowResults(true);
-        setShowResults(true);
-        const votosPromises = data.data.map((result) => {
-          return getVotosMedia(result.id);
-        });
-  
-        const dataVotes = await Promise.all(votosPromises);
-  
-        setVotos(dataVotes.map(data => {
-          const { votos_medios } = data[0];
-          return parseInt(votos_medios, 10);
-        }));
+        setVotos(data.data.voto)
       } catch (error) {
+        toast.error(error.message);
         console.log(error);
       }
     };
@@ -47,13 +41,14 @@ const Buscador = () => {
   const handleClear = () => {
       setCategoria("");
       setLugar("");
+      setOrder("");
       setSearchResults([]);
       setShowResults(false);
       setVotos([]);
     };
 
   return (
-    <div className="buscador-container">
+    <form className="buscador-container" onSubmit={(e) => e.preventDefault()}>
       <div className="buscador-inputs-1">
         <input
           className="buscador-input"
@@ -85,8 +80,8 @@ const Buscador = () => {
           onChange={(event) => setOrder(event.target.value)}
         >
           <option value="">Ordenar por votos</option>
-          <option value="mas">Más votados</option>
-          <option value="menos">Menos votados</option>
+          <option value="DESC">Más votados</option>
+          <option value="ASC">Menos votados</option>
         </select>
       </div>
       {showResults && (
@@ -106,12 +101,12 @@ const Buscador = () => {
                     <h4>📍{result.lugar}</h4>
                     <h4>{result.categoria}</h4>
                     <div className="estrellas">
-                  { votos[index] !=  isNaN ?(
+                  { result.voto !=  null ?(
                       <>
                           <Box sx={{ '& > legend': { mt: 2 } }}>
-                            <Rating name={`rating-${result.id}`} value={votos[index]} readOnly />
+                            <Rating name={`rating-${result.id}`} value={result.voto} readOnly />
                           </Box>
-                            <p className="votos">({votos[index]})</p>        
+                            <p className="votos">({result.voto})</p>        
                           </>
                       ) : (
                         <p className="votos">Aún no hay votos registrados</p>   
@@ -130,7 +125,7 @@ const Buscador = () => {
                       )}
                       </ul>
                       )}
-                      </div>
+                      </form>
                       );
                       };
       export default Buscador;
