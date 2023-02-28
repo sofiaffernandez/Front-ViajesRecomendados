@@ -12,7 +12,6 @@ const Buscador = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [order, setOrder] = useState("");
   const [showResults, setShowResults] = useState(false);
-  const [votos, setVotos] = useState([]);
 
 
   const handleSearch = async () => {
@@ -23,12 +22,10 @@ const Buscador = () => {
         console.log(res)
         const data = await res.json();
         setSearchResults(data.data);
-        console.log(data.data)
         setShowResults(true);
-        setVotos(data.data.voto)
+        
       } catch (error) {
         toast.error(error.message);
-        console.log(error);
       }
     };
     
@@ -44,7 +41,6 @@ const Buscador = () => {
       setOrder("");
       setSearchResults([]);
       setShowResults(false);
-      setVotos([]);
     };
 
   return (
@@ -87,7 +83,7 @@ const Buscador = () => {
       {showResults && (
         <ul className="buscador-resultados">
           {searchResults.length > 0 ? (
-            searchResults.map((result, index) => {
+            searchResults.map((result) => {
               if (
                 (result.categoria === categoria || categoria === "") &&
                 (result.lugar.toLowerCase().includes(lugar.toLowerCase()) ||
@@ -101,18 +97,14 @@ const Buscador = () => {
                     <h4>📍{result.lugar}</h4>
                     <h4>{result.categoria}</h4>
                     <div className="estrellas">
-                  { result.voto !=  null ?(
-                      <>
-                          <Box sx={{ '& > legend': { mt: 2 } }}>
-                            <Rating name={`rating-${result.id}`} value={result.voto} readOnly />
-                          </Box>
-                            <p className="votos">({result.voto})</p>        
-                          </>
-                      ) : (
-                        <p className="votos">Aún no hay votos registrados</p>   
-
-                    )}
- 
+                    {result.votos === null ? 
+                        <p className="votos">Aún no hay votos registrados</p> : <>
+                        <Box sx={{ '& > legend': { mt: 2 } }}>
+                            <Rating name={`rating-${result.id}`} value={parseInt(result.votos, 10)} readOnly />
+                        </Box>
+                            <p className="votos">({parseInt(result.votos, 10)})</p>
+                        </>
+                    }
                       </div>
                       </li>
                       );
