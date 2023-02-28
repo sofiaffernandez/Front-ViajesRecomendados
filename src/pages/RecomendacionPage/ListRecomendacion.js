@@ -36,9 +36,9 @@ const ListRecomendaciones = () => {
       <section className="lista">
         <ul className="listaRecomendaciones">
           {recomendaciones.length > 0 ? (
-            recomendaciones.slice(page * 10, page * 10 + 10).map((recomendacion, index) => {
-              const foto = fotos[index];
-
+            recomendaciones.slice(page * 10, page * 10 + 10).map((recomendacion, ) => {
+              const {foto} = recomendacion;
+                 
               return (
                 <li key={recomendacion.id}>
                   <Link to={`/recomendacion/${recomendacion.id}/detalle`}>
