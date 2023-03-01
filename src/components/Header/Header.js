@@ -21,7 +21,7 @@ const Header = () => {
     <header className="principal">
         <nav>
             <ul>
-                <li>
+                <li className="logoPagina">
                     <Link to="/" >
                     <img src={logo} alt ="logo pagina" />
                     </Link>

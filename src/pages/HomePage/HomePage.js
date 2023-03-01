@@ -26,11 +26,6 @@ function Home() {
       <h2> Últimas recomendaciones </h2>
       <Ultimas />
       </section>
-      <h2>Vota y comenta las recomendaciones<br/></h2>
-    <section className="Voto">
-      <img src={chicosplaya} alt="pareja en la playa" />
-      <p> Tendrás la oportunidad de votar las recomendaciones de otros usuarios, comentar sobre ellas y descubrir el perfil de otros viajeros. Otros usuarios también pueden votar y comentar tus recomendaciones. Esto te ayudará a descubrir los mejores planes y a encontrar los mejores consejos sobre un destino que te interese.</p>
-      </section>
       <section className="accede">
       { !usuario ? (
               <>
@@ -46,6 +41,11 @@ function Home() {
             </>
               ):(
                 null )}
+      </section>
+      <h2>Vota y comenta las recomendaciones<br/></h2>
+    <section className="Voto">
+      <img src={chicosplaya} alt="pareja en la playa" />
+      <p> Tendrás la oportunidad de votar las recomendaciones de otros usuarios, comentar sobre ellas y descubrir el perfil de otros viajeros. Otros usuarios también pueden votar y comentar tus recomendaciones. Esto te ayudará a descubrir los mejores planes y a encontrar los mejores consejos sobre un destino que te interese.</p>
       </section>
                 
     </main>)

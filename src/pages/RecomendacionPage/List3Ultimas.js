@@ -53,19 +53,15 @@ const Ultimas = () => {
             <p className="noRecomendacion">
               Parece que de momento no hay recomendaciones para mostrar. ¡Puedes empezar creándolas tú!
             </p>
-            {!usuario ? ( 
-              <>
-                <h3>Accede a la comunidad</h3>
-                <Link to="/usuario/login" className="accedeLink">
-                  Accede
-                </Link>
-              </>
-            ) : (
-              <>
+            {usuario ? ( 
+              <div className="creaRecomendacion">
                 <h3>Crea nuevas recomendaciones</h3>
                 <Link to="/recomendacion/formulario" className="creaLink">
                   Crea
                 </Link>
+              </div>
+            ) : (
+              <>
               </>
             )}
           </section>

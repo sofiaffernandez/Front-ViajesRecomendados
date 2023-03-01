@@ -51,12 +51,13 @@ const PaginaUsuario = () => {
      <main className={theme}>
        <section className='Perfil'>
          <h2>Perfil de {nombre}</h2>
+         <div className="infoPerfil">
            {avatar  ? (
              <img className="avatar" src={`${process.env.REACT_APP_BACKEND}/public/${avatar}`} alt="Avatar"></img>
         ) : (
-          <p>Parece que de momento no tiene avatar.</p>
+          null
           )}
-          
+          <div className="contenedorTextPerfil">
           <h3>{nombre}</h3>
            <h3>{email} </h3>
            <p>Creado en {new Date(created_at).toLocaleDateString('es-ES')}</p>
@@ -67,7 +68,9 @@ const PaginaUsuario = () => {
               ) : (
               null
               )}
-         
+         </div>
+
+         </div>
         </section>
     <section className='RecomendacionesPerfil'>
           <h2> Recomendaciones de {nombre} </h2>

@@ -8,14 +8,11 @@
     flex-direction: column;
     align-content: center;
     align-items: center;
+    margin-bottom: 1rem;
   }
 
   section.Presentacion img {
     display: none;
-  }
-
-  section.Buscador {
-    margin: 1rem 0;
   }
 
   section.Voto {
@@ -50,10 +47,45 @@ section.accede a {
 }
 }
 
-
+section.accede{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+}
+section.accede h2{
+  margin: 2% 15%;
+}
+div .contenedorTexto{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.accedeLink{
+  text-align: center;
+  background-color: rgb(147, 195, 207);
+  color: black;
+  border: none;
+  font-family: "Baloo 2",sans-serif;
+  font-size: large;
+  font-weight: 700;
+  border-radius: 0.25rem;
+  margin-top: 5%;
+  width: 5rem;
+  height: 2rem;
+}
+div .contenedorAccede{
+ display: flex;
+flex-direction: row-reverse;
+align-items: center;
+justify-content: space-between;
+}
 /* Estilos para tablets y dispositivos con pantalla más grande */
 @media only screen and (min-width: 601px) {
- 
+  section.accede{
+    margin: 2% 15%;
+  }
   .Presentacion {
     display: flex;
     justify-content: center;
@@ -81,34 +113,6 @@ section.accede a {
     max-width: 40%;
     margin-right: 2rem;
   }
-  section.accede{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 2% 15%;
-  }
-  section.accede h2{
-    margin: 2% 15%;
-  }
-.accedeLink{
-    background-color: rgb(147, 195, 207);
-    color: black;
-    border: none;
-    border-radius: 0.25rem;
-    padding: 0.5rem 1rem;
-    margin: 1rem;
-    display: block;
-  margin-top: 20px;
-  width: 5rem;
-  justify-content: center;
-}
-div .contenedorAccede{
-   display: flex;
-  flex-direction: row-reverse;
-  align-items: center;
-  justify-content: space-between;
-}
 .imagenAccede{
    width: 50%;
   height: auto;
@@ -122,3 +126,4 @@ div .contenedorAccede{
 }
 
 }
+

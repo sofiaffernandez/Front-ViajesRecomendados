@@ -73,9 +73,27 @@
 h3{
   text-align: center;
 }
-section .noRecomendaciones{
+section.noRecomendaciones, div.accede, div.creaRecomendacion{
   display: flex;
   flex-direction: column;
     justify-content: center;
     align-items: center;
 }
+p.noRecomendacion{
+  margin: 0% 10% 5% 10%;
+}
+.creaLink{
+  text-align: center;
+  background-color: rgb(147, 195, 207);
+  color: black;
+  border: none;
+  height: 3rem;
+  font-family: "Baloo 2",sans-serif;
+  font-size: large;
+  font-weight: 700;
+  border-radius: 0.25rem;
+  margin-top: 5%;
+  width: 5rem;
+  height: 2rem;
+}
+

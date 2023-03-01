@@ -1,5 +1,5 @@
     .buscador-container {
-        margin: 2rem auto;
+        margin: 1rem 1rem;
         padding: 1rem;
         max-width: 800px;
         border-radius: 20px;
@@ -51,10 +51,6 @@
     
     .buscador-select:focus {
         outline: none;
-    }
-    
-    .buscador-resultados {
-        display: none;
     }
     
     .buscador-resultados li {

@@ -1,11 +1,11 @@
 section.sectionListaPerfiles{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  
 }
 ul.listaPerfiles {
     display: flex;
@@ -49,10 +49,4 @@ ul.listaPerfiles {
     color:  rgb(147, 195, 207);
   }
   
-  
-  @media screen and (max-width: 768px) {
-    ul.listaPerfiles li {
-      width: 100%;
-    }
-  }
   

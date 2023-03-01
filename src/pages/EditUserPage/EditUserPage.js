@@ -16,6 +16,8 @@ function EditUser() {
   const [email, setEmail] = useState();
   const [avatar, setAvatar] = useState();
   const [avatarPreview, setAvatarPreview] = useState();
+  const [viejaContrasena, setViejaContrasena]= useState();
+  const [nuevaContrasena, setNuevaContrasena]= useState();
 
   //Establecimiento del status y su set 
   const [status, setStatus] = useState("");
@@ -25,8 +27,9 @@ function EditUser() {
     setNombre(nombre);
     setEmail(email);
     setAvatarPreview(avatar);
-
-  }, [nombre, email, avatar ]);
+    setViejaContrasena(viejaContrasena);
+    setNuevaContrasena(nuevaContrasena)
+  }, [nombre, email, avatar, nuevaContrasena, viejaContrasena ]);
 
 const handleSubmit = async (e) => {
     e.preventDefault();
@@ -97,6 +100,38 @@ const handleSubmit = async (e) => {
    }
   }
 
+  const cambioContraseña = async (e) => {
+    e.preventDefault()
+    setStatus("loading");
+    try{
+      const formData = new FormData();
+      formData.append("viejaContrasena", viejaContrasena);
+      formData.append("nuevaContrasena", nuevaContrasena); 
+    
+      const res = await fetch(`${process.env.REACT_APP_BACKEND}/usuario/${id}/contrasena`, {
+        method: "post",
+        headers: {
+          Authorization: token,
+        },
+        body: formData
+      });
+    
+      const data = await res.json();
+    
+      if (!res.ok) {
+        throw new Error(data.message);
+      }else{
+        toast.success("Se ha cambiado la contraseña");
+        navigate("/");
+        setUser();
+      }
+      }catch (error) {
+        toast.error(error.message);
+      } finally{
+        setStatus("");
+   }
+  }
+
   return (
     <main className={theme}>
       <div className="EditUser">
@@ -130,10 +165,32 @@ const handleSubmit = async (e) => {
         {avatarPreview && <img src={avatarPreview} alt="preview" />}
       </label>
       <button>Guardar cambios</button>
+    </form>
+    <form className="useredit" onSubmit={cambioContraseña}>
+      <h2>Cambia tu contraseña</h2>
+      <label>
+        <span>Antigua contraseña:</span>
+        <input
+          name="contrasenaVieja"
+          type="password"
+          value={viejaContrasena}
+          onChange={(e) => setViejaContrasena(e.target.value)}
+        />
+      </label>
+      <label>
+        <span>Nueva contraseña:</span>
+        <input
+          name="contrasenaNueva"
+          type="password"
+          value={nuevaContrasena}
+          onChange={(e) => setNuevaContrasena(e.target.value)}
+        />
+      </label>
+      <button>Cambiar contraseña</button>
+    </form>
     <section >
       < RiDeleteBin6Line className="delete" onClick={handleClick}/>              
     </section>
-    </form>
       </div>
 
     </main>
