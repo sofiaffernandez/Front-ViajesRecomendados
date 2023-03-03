@@ -50,7 +50,7 @@ if (status === "loading") {
 
 return (
 <>
-<form onSubmit={handleSubmit}>
+<form className="formcomentar" onSubmit={handleSubmit}>
       <textarea
         type="text"
         className="texto-comentario"

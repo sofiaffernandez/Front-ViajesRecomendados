@@ -188,7 +188,7 @@ const handleSubmit = async (e) => {
       </label>
       <button>Cambiar contraseña</button>
     </form>
-    <section >
+    <section className="deleteUserPage">
       < RiDeleteBin6Line className="delete" onClick={handleClick}/>              
     </section>
       </div>

@@ -4,13 +4,27 @@ import * as React from 'react';
 import Rating from '@mui/material/Rating';
 import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import getVotosMedia from "../../services/GetVotosMedia";
+
 const Votar = () => {
   const { id } = useParams();
   const token = JSON.parse(localStorage.getItem('user')).token;
   //Establecimiento del status y su set 
   const [status, setStatus] = useState("");
-  const [voto, setVoto] = useState(5);
+const [votosEnteros, setVotos] = useState(0)
+useEffect (() =>{
+  const dataV = getVotosMedia(id);
+    dataV.then(data => {
+      const { votos_medios } = data[0];
+      if (votos_medios) {
+        const votosEnteros = parseInt(votos_medios, 10);
+        setVotos(votosEnteros);
+        setVoto(votosEnteros);
+      }
+})
+}, [id])
+  const [voto, setVoto] = useState(0);
   
   const handleClickRating = async (e, voto) => {
     e.preventDefault();

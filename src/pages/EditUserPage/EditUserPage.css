@@ -57,7 +57,7 @@ form.useredit button {
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
-.delete{
+section.deleteUserPage .delete{
     background-color: rgb(147, 195, 207);
     color: black;
     margin: 1rem 0%;

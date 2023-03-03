@@ -101,6 +101,10 @@ const RecomendacionPage = () => {
 const handleClick = async (e) => {
   e.preventDefault()
   setStatus("loading");
+  if (!window.confirm("¿Estás seguro de que deseas eliminar esta recomendación?")) {
+    setStatus("");
+    return;
+  }
   try{
     const res = await fetch(`${process.env.REACT_APP_BACKEND}/recomendacion/${id}`, {
       method: "DELETE",
@@ -135,7 +139,7 @@ const {foto} = fotos;
       <main className={theme}>
     <section className="UnicaRecomendacion">
       {recomendacion && (
-        <section >
+        <>
           <h2>{recomendacion.titulo}</h2>
           { foto ? (
             <img src={`${process.env.REACT_APP_BACKEND}/public/${foto}`} alt={recomendacion.titulo} />
@@ -168,10 +172,10 @@ const {foto} = fotos;
         }
           
         </div>
-        </section>
+        </>
       )}
         { recomendacion.autor_id === idLogin ? (
-                         <section>
+                         <section className="editRecomendacion">
                            <Link to={`/recomendacion/${id}/editar`}>
                              <MdOutlineCreate /> 
                             </Link>
@@ -181,20 +185,14 @@ const {foto} = fotos;
                              null
                            )}
                   { recomendacion.autor_id === idLogin ? (
-                         <section>
+                         <section className="delete" >
                             < RiDeleteBin6Line onClick={handleClick}/>
                      
                          </section>
                            ) : (
                              null
                            )}
-     {token ? (
-                 <section className="comentar">
-                  <Comentar /> 
-                </section>
-                  ) : (
-                    <p> Registrate para poder comentar </p>
-                  )}
+    
               <ul className="listacomentarios">
               {comentarios.length > 0 ? (
         <ul>
@@ -204,16 +202,20 @@ const {foto} = fotos;
             );
             return (
               <li key={comentario.id}>
-                <p> {usuario.nombre}:</p>
-                <p>{comentario.comentario}</p>
-                <p>{new Date(comentario.created_at).toLocaleDateString('es-ES')}</p>
                 <Link to={`/usuario/${comentario.usuario_id}/detalle`}>
+                <p className="nombreComentario"> {usuario.nombre}:</p>
                 </Link>
+                <p>{comentario.comentario}</p>
+                <p className="fechaComentario">{new Date(comentario.created_at).toLocaleDateString('es-ES')}</p>
                 {comentario.usuario_id === idLogin ? (
-                    <section>
+                    <section className="deleteComentario" >
                       <RiDeleteBin6Line onClick={async (e) => {
                         e.preventDefault();
                         setStatus("loading");
+                        if (!window.confirm("¿Estás seguro de que deseas eliminar este comentario?")) {
+        
+                          return;
+                        }
                         try {
                           const res = await fetch(`${process.env.REACT_APP_BACKEND}/comentario/${comentario.id}`, {
                             method: "DELETE",
@@ -228,13 +230,15 @@ const {foto} = fotos;
                             throw new Error(data.message);
                           } else {
                             toast.success("Se ha eliminado correctamente");
-                            window.location.reload()
+                            window.location.reload();
+                            setStatus("");
                           }
                         } catch (error) {
                           toast.error(error.message);
                         } finally {
                           setStatus("");
                         }
+                        
                       }} />                 
                     </section>
                   ) : null}
@@ -246,6 +250,13 @@ const {foto} = fotos;
         <p>Parece que de momento no hay comentarios en esta recomendacion</p>
       )}
             </ul>
+            {token ? (
+                 <section className="comentar">
+                  <Comentar /> 
+                </section>
+                  ) : (
+                    <p> Registrate para poder comentar </p>
+                  )}
     </section>
     </main>
   );

@@ -4,6 +4,7 @@ import { GetAllRecomendaciones } from "../../services/GetAllRecomendaciones";
 import { GetFotoRecomendacion } from "../../services/GetFotoRecomendacion";
 import { useUser } from "../../context/UserContext";
 import "./List3Ultimas.css"
+import logoplanb from "../../logoplanb.png"
 const Ultimas = () => {
     const [recomendaciones, setRecomendaciones] = useState([]);
     const [page] = useState(0);
@@ -41,9 +42,13 @@ const Ultimas = () => {
                       src={`${process.env.REACT_APP_BACKEND}/public/${foto}`}
                       alt={recomendacion.titulo}
                     />
-                  ) : null}
-                    <h3>{recomendacion.titulo}</h3>
-          
+                  ) :  <img
+                  src={logoplanb}
+                  alt="logo plan b"
+                  className="rellenologoplan"
+                />}
+    <h3>{recomendacion.titulo}</h3>
+
                   </Link>
                   </li>
             );
