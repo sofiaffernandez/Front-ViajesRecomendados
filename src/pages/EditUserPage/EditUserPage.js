@@ -76,6 +76,10 @@ const handleSubmit = async (e) => {
   const handleClick = async (e) => {
     e.preventDefault()
     setStatus("loading");
+    if (!window.confirm("¿Estás seguro de que deseas eliminar este usuario?")) {
+      setStatus("");
+      return;
+    }
     try{
       const res = await fetch(`${process.env.REACT_APP_BACKEND}/usuario/${id}`, {
         method: "DELETE",

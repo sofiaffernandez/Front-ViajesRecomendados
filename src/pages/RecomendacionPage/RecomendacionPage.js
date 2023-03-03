@@ -213,7 +213,7 @@ const {foto} = fotos;
                         e.preventDefault();
                         setStatus("loading");
                         if (!window.confirm("¿Estás seguro de que deseas eliminar este comentario?")) {
-        
+                          setStatus("");
                           return;
                         }
                         try {
